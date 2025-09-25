@@ -1,19 +1,26 @@
 {
   "name": "weather-app-challenge",
   "private": true,
+  "homepage": "https://sumaiyakawsar.github.io/weather-app-challenge/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "check-unused": "knip"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
-    "sass": "^1.92.1"
+    "react-loading-skeleton": "^3.5.0",
+    "react-speech-recognition": "^4.0.1"
+
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
@@ -24,6 +31,12 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "knip": "^5.64.0",
+    "sass": "^1.92.1",
     "vite": "^7.1.2"
-  }
+  },
+    "description": "Weather App Challenge by frontend mentor ",
+    "main": "eslint.config.js",
+    "author": "Sumaiya Kawsar",
+    "license": "ISC"
 }
