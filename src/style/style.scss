@@ -1,5 +1,6 @@
 @use "functions" as f;
 @use "variables" as v;
+@use "animations" as *;
 @use "mq" as *;
 
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;500;600;700;1,9..40,300;500;600;700;&display=swap");
@@ -15,4 +16,1062 @@
     user-select: none;
     list-style: none;
     scroll-behavior: smooth;
+}
+
+button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: f.rem(8);
+    transition: background-color 0.2s ease;
+    padding: f.rem(8);
+    cursor: pointer;
+    box-shadow: 0 f.rem(2) f.rem(6) rgba(0, 0, 0, 0.15);
+}
+
+button,
+input {
+    &:focus,
+    &:focus-visible {
+        outline-offset: f.rem(2);
+        outline: f.rem(2) solid v.$neutral-200;
+    }
+}
+
+h2 {
+    font-size: clamp(f.rem(18), f.rem(16) + 0.5vw, f.rem(22));
+    font-weight: v.$font-bold;
+}
+img {
+    display: block;
+}
+
+.weather-app {
+    min-height: 100dvh;
+    line-height: 1.5;
+    font-family: v.$bg-font;
+    color: v.$neutral-0;
+    background: v.$neutral-900;
+    .container {
+        flex: 1; // take remaining space between navbar/header and footer
+        min-height: 100dvh;
+        width: 100%;
+        max-width: 80dvw;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        gap: f.rem(32);
+        padding-block: f.rem(32);
+
+        .navbar {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            .logo {
+                cursor: pointer;
+            }
+            .right {
+                .units-menu {
+                    position: relative;
+                    display: inline-block;
+
+                    .menu-btn {
+                        background: v.$neutral-800;
+                        color: v.$neutral-0;
+                        padding: f.rem(8) f.rem(16);
+                        border-radius: f.rem(8);
+                        font-size: clamp(f.rem(14), 1.5vw, f.rem(16));
+                        font-weight: v.$font-bold;
+                        display: flex;
+                        align-items: center;
+                        gap: f.rem(8);
+
+                        .arrow {
+                            font-size: clamp(f.rem(10), 1.5vw, f.rem(12));
+                        }
+
+                        &:hover {
+                            background: v.$neutral-700;
+                        }
+                    }
+
+                    .dropdown {
+                        position: absolute;
+                        top: 100%;
+                        right: 0;
+                        margin-top: f.rem(10);
+                        background: v.$neutral-800;
+                        border-radius: f.rem(12);
+                        padding: f.rem(16);
+                        width: f.em(250);
+                        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+                        z-index: 20;
+                        animation: fadeIn 0.25s ease;
+                        display: flex;
+                        flex-direction: column;
+                        gap: f.rem(8);
+
+                        .system-toggle {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding-block: f.rem(8);
+                            .system-label {
+                                font-size: f.rem(14);
+                                font-weight: v.$font-bold;
+                                color: v.$neutral-300;
+                                transition: all 0.2s ease;
+                                cursor: pointer;
+                                user-select: none;
+
+                                &:hover {
+                                    color: v.$neutral-200;
+                                }
+
+                                &.active {
+                                    color: v.$orange-500;
+                                    font-weight: v.$font-bolder;
+                                }
+                            }
+
+                            .toggle-switch {
+                                position: relative;
+                                width: f.em(50);
+                                height: f.em(24);
+                                background: v.$orange-500;
+                                border-radius: f.rem(12);
+                                border: none;
+                                cursor: pointer;
+                                transition: background 0.3s ease;
+                                padding: 0;
+                                margin: 0 f.rem(12);
+
+                                &.toggled {
+                                    background: v.$orange-500;
+
+                                    .toggle-slider {
+                                        transform: translateX(f.em(26));
+                                    }
+                                }
+                                &:hover {
+                                    background: color-mix(in srgb, v.$neutral-0 15%, v.$orange-500 85%);
+                                }
+                                .toggle-slider {
+                                    position: absolute;
+                                    top: f.em(2);
+                                    left: f.em(2);
+                                    width: f.em(20);
+                                    height: f.em(20);
+                                    background: v.$neutral-0;
+                                    border-radius: 50%;
+                                    transition: transform 0.3s ease;
+                                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+                                }
+                            }
+                        }
+
+                        .dropdown-group {
+                            margin-bottom: f.rem(16);
+                            border-bottom: 1px solid v.$neutral-600;
+                            &:last-child {
+                                margin-bottom: 0;
+                                padding-bottom: 0;
+                                border-bottom: none;
+                            }
+                            .label {
+                                font-size: f.rem(14);
+                                font-weight: v.$font-bold;
+                                color: v.$neutral-300;
+                                display: flex;
+                                align-items: center;
+                                gap: f.rem(4);
+                                
+                            }
+
+                            .custom-dropdown {
+                                cursor: pointer;
+
+                                .options {
+                                    padding-block: f.rem(8);
+
+                                    li {
+                                        padding: f.rem(6) f.rem(9);
+                                        border-radius: f.rem(6);
+                                        font-size: f.rem(14);
+                                        cursor: pointer;
+                                        color: v.$neutral-0;
+                                        transition: background 0.2s;
+
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: space-between;
+
+                                        &:hover {
+                                            background: v.$neutral-600;
+                                        }
+
+                                        &.active {
+                                            background: v.$neutral-700;
+
+                                            .check {
+                                                font-weight: v.$font-bolder;
+                                                color: v.$neutral-0;
+                                                font-size: f.rem(14);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            gap: f.rem(48);
+            justify-content: center;
+            align-items: center;
+            width: 50vw;
+
+            h1 {
+                color: v.$neutral-0;
+                font-size: f.rem(48);
+            }
+            .search-bar {
+                display: flex;
+                align-items: center;
+                gap: f.rem(8);
+                width: 100%;
+                flex-wrap: wrap;
+                position: relative;
+                .input-wrapper {
+                    position: relative;
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+
+                    input {
+                        width: 100%;
+                        padding: f.rem(8) f.rem(48) f.rem(8) f.rem(40); // space for search + mic
+                        border-radius: 9999px; // pill shape
+                        font-size: f.rem(16);
+                        background-color: v.$neutral-700;
+                        color: v.$neutral-300;
+                        border: 1px solid transparent;
+                        transition: all 0.2s ease;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+
+                        &:hover {
+                            border-color: v.$neutral-300;
+                        }
+
+                        &:focus {
+                            outline: none;
+                            border-color: v.$blue-500;
+                            box-shadow: 0 0 0 3px rgba(29, 155, 209, 0.2);
+                        }
+
+                        &::placeholder {
+                            color: v.$neutral-300;
+                            font-weight: v.$font-normal;
+                        }
+                    }
+                    .search-icon,
+                    .mic-icon,
+                    .clear-icon {
+                        position: absolute;
+                        top: 50%;
+                        z-index: 2;
+                        transform: translateY(-50%);
+                        font-size: f.rem(17);
+                        color: v.$neutral-300;
+                    }
+                    .search-icon {
+                        left: f.rem(12);
+                        pointer-events: none;
+                    }
+
+                    .mic-icon {
+                        right: f.rem(12);
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+
+                        &:hover {
+                            color: v.$blue-500;
+                        }
+
+                        &.listening {
+                            color: red;
+                            animation: pulse 1s infinite;
+                        }
+                    }
+                    .clear-icon {
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        right: f.rem(40); // Position to the left of mic icon
+                        &:hover {
+                            color: red; // Red color for clear action
+                        }
+                    }
+                    .suggestions-dropdown {
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        width: 100%;
+                        background: v.$neutral-800;
+
+                        border-radius: f.rem(8);
+                        margin-top: f.rem(10);
+                        list-style: none;
+                        padding: f.rem(8);
+                        z-index: 10;
+
+                        li {
+                            padding: f.rem(8);
+                            cursor: pointer;
+                            border-radius: f.rem(8);
+
+                            &:hover,
+                            &:focus,
+                            &.highlighted,
+                            &:focus-visible {
+                                background: v.$neutral-600;
+                            }
+                        }
+                    }
+                }
+
+                button {
+                    padding: f.rem(8) f.rem(20);
+                    background-color: v.$blue-500;
+                    color: #fff;
+                    border: none;
+                    border-radius: 9999px; // match pill shape
+                    cursor: pointer;
+                    font-size: f.rem(16);
+                    transition:
+                        background-color 0.2s ease,
+                        transform 0.1s ease;
+
+                    &:hover {
+                        background-color: v.$blue-700;
+                        transform: translateY(-1px);
+                    }
+
+                    &:active {
+                        transform: translateY(0);
+                    }
+
+                    &:focus,
+                    &:focus-visible {
+                        outline-color: v.$blue-500;
+                        box-shadow: 0 0 0 3px rgba(29, 155, 209, 0.2);
+                    }
+                }
+            }
+        }
+
+        .main-content {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; // centers content for no-results/error
+
+            .results {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: f.rem(32);
+                grid-template-areas:
+                    "current"
+                    "stats"
+                    "daily"
+                    "hourly";
+
+                @include breakpoint(medium) {
+                    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+
+                    grid-template-areas:
+                        "current hourly"
+                        "stats hourly"
+                        "daily hourly";
+                }
+
+                .weather {
+                    // -------------------------
+                    // Current Weather
+                    // -------------------------
+                    &__current {
+                        grid-area: current;
+                        position: relative;
+                        height: auto; // let content dictate height on mobile
+                        // height: 300px;
+                        overflow: hidden;
+                        border-radius: f.rem(28);
+
+                        padding: f.rem(24);
+                        background: url("../assets/bg-today-small.svg");
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        @include breakpoint(medium) {
+                            background: url("../assets/bg-today-large.svg");
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                        }
+
+                        .content {
+                            width: 100%;
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            grid-template-rows: auto auto auto;
+                            gap: f.rem(12);
+                            padding-block: f.rem(32);
+
+                            .location__date {
+                                grid-column: 1;
+                                grid-row: 1;
+                                .place {
+                                    font-size: f.rem(28);
+                                    font-weight: v.$font-bolder;
+                                }
+                                .date,
+                                .time {
+                                    font-size: f.rem(14);
+                                    opacity: 0.8;
+                                }
+                                @include breakpoint(small) {
+                                    grid-column: 1;
+                                    grid-row: 1;
+                                }
+
+                                @include breakpoint(medium) {
+                                    grid-column: 1;
+                                    grid-row: 1;
+                                    justify-self: start;
+                                }
+                            }
+
+                            .temp {
+                                grid-column: 1;
+                                grid-row: 2;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center; // stack nicely below location
+
+                                .value {
+                                    font-weight: v.$font-bold;
+                                    font-family: v.$dm-font;
+                                    font-style: italic;
+                                    font-size: f.rem(64);
+                                }
+                                @include breakpoint(small) {
+                                    grid-column: 2;
+                                    grid-row: 1;
+                                    justify-self: end;
+                                }
+                                @include breakpoint(medium) {
+                                    grid-column: 3;
+                                    grid-row: 1;
+                                    justify-self: end;
+                                }
+                            }
+
+                            // tablet
+                            @include breakpoint(small) {
+                                grid-template-columns: 1fr 1fr; // 2 columns
+                                grid-template-rows: auto auto;
+                                align-items: center;
+                            }
+
+                            // Desktop
+                            @include breakpoint(medium) {
+                                grid-template-columns: 1fr auto 1fr; // 3 columns
+                                grid-template-rows: auto;
+                                align-items: center;
+                            }
+                        }
+                    }
+
+                    // -------------------------
+                    // Stats Grid
+                    // -------------------------
+                    &__stats {
+                        grid-area: stats;
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: f.rem(4);
+                        border-radius: f.rem(12);
+                        overflow: hidden;
+
+                        .stat-card {
+                            flex: 1;
+                            min-width: f.rem(80);
+                            &__content {
+                                position: relative;
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                padding: f.rem(10);
+                                background: v.$neutral-700;
+
+                                &-front,
+                                &-back {
+                                    width: 100%;
+                                    display: flex;
+                                    flex-direction: row;
+                                    justify-content: center;
+                                    align-items: center;
+                                    padding: f.rem(4);
+                                }
+
+                                &-front {
+                                    font-weight: v.$font-bold;
+                                    gap: f.rem(4);
+                                    opacity: 0.6;
+
+                                    .icon {
+                                        font-size: f.rem(24);
+                                        display: grid;
+                                        place-content: center;
+                                    }
+
+                                    .label {
+                                        text-align: center;
+                                        font-size: f.rem(10);
+                                    }
+                                }
+
+                                &-back {
+                                    gap: f.rem(5);
+
+                                    .value {
+                                        font-size: f.rem(14);
+                                    }
+                                    .badge {
+                                        border-radius: f.rem(8);
+                                        padding: f.rem(2) f.rem(8);
+                                        font-weight: v.$font-bold;
+                                        font-size: f.rem(10);
+                                    }
+                                }
+                            }
+
+                            // Desktop styles (768px and up)
+                            @include breakpoint(medium) {
+                                perspective: 1000px;
+                                min-height: f.rem(100);
+
+                                &__content {
+                                    position: relative;
+                                    width: 100%;
+                                    height: 100%;
+                                    transform-style: preserve-3d;
+                                    transition: transform 0.6s;
+                                    padding: f.rem(0);
+                                    &-front,
+                                    &-back {
+                                        position: absolute;
+                                        height: 100%;
+                                        backface-visibility: hidden;
+                                        padding: f.rem(10);
+                                    }
+                                    &-front {
+                                        opacity: 1;
+                                        flex-direction: column !important;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+                                    &-back {
+                                        transform: rotateY(180deg);
+                                    }
+                                } // Hover effect only on desktop
+                                @media (hover: hover) and (pointer: fine) {
+                                    &:hover .stat-card__content,
+                                    &:active .stat-card__content {
+                                        transform: rotateY(180deg);
+                                    }
+                                }
+                            }
+                        }
+
+                        @include breakpoint(medium) {
+                            gap: f.rem(0);
+                        }
+                    }
+
+                    // -------------------------
+                    // Daily Forecast
+                    // -------------------------
+                    &__daily {
+                        grid-area: daily;
+                        display: flex;
+                        flex-direction: column;
+                        gap: f.rem(24);
+
+                        .daily-grid {
+                            flex: 1;
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
+
+                            gap: f.rem(16);
+
+                            .day__card {
+                                background: v.$neutral-700;
+                                border-radius: f.rem(12);
+                                position: relative;
+                                overflow: hidden;
+                                transition: all 0.3s ease;
+
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                padding: f.rem(16);
+                                &-content {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: f.rem(16);
+
+                                    .day-header {
+                                        display: flex;
+                                        // justify-content: space-between;
+                                        flex-direction: column;
+                                        gap: f.rem(16);
+                                        align-items: center;
+                                        transition: opacity 0.3s ease;
+
+                                        .day-name {
+                                            font-weight: v.$font-bold;
+                                            font-size: f.rem(18);
+                                            color: #e2e8f0;
+                                            margin: 0;
+                                        }
+                                    }
+
+                                    .temperature-range {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+
+                                        .temp-max {
+                                            font-weight: v.$font-bolder;
+                                            font-size: f.rem(18);
+                                            color: v.$neutral-0;
+                                        }
+
+                                        .temp-min {
+                                            font-weight: v.$font-normal;
+                                            font-size: f.rem(16);
+                                            color: v.$neutral-300;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // -------------------------
+                    // Hourly Forecast
+                    // -------------------------
+                    &__hourly {
+                        grid-area: hourly;
+                        background: v.$neutral-800;
+                        border-radius: f.rem(12);
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                        max-height: 690px;
+
+                        .forecast-header {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: f.rem(16);
+
+                            .day-dropdown {
+                                position: relative;
+                                display: inline-block;
+
+                                .select__day {
+                                    background: v.$neutral-700;
+                                    color: v.$neutral-0;
+                                    border: none;
+                                    padding: f.rem(8) f.rem(16);
+                                    border-radius: f.rem(8);
+                                    cursor: pointer;
+                                    font-size: f.rem(14);
+                                    width: max-content;
+                                    transition: all 0.2s;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: f.rem(8);
+                                    .arrow {
+                                        font-size: f.rem(12);
+                                    }
+                                    &:hover {
+                                        background: v.$neutral-600;
+                                    }
+                                }
+
+                                .dropdown-list {
+                                    position: absolute;
+                                    top: 100%;
+                                    right: 0;
+                                    background: v.$neutral-800;
+                                    border-radius: f.rem(8);
+                                    padding: f.rem(8);
+                                    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+                                    margin-top: f.rem(10);
+                                    border: v.$neutral-700 0.2px solid;
+                                    z-index: 10;
+                                    animation: fadeIn 0.25s ease;
+
+                                    li {
+                                        padding: f.rem(8);
+                                        border-radius: f.rem(8);
+                                        cursor: pointer;
+
+                                        &:hover,
+                                        &:focus,
+                                        &.highlighted,
+                                        &:focus-visible {
+                                            background: v.$neutral-600;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .forecast-list {
+                            flex: 1;
+                            min-width: 0;
+                            min-height: 0;
+                            padding: f.rem(16);
+                            overflow-y: auto;
+                            overflow-x: hidden;
+                            display: flex;
+                            flex-direction: column;
+                            gap: f.rem(12);
+
+                            .hour-card {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                padding: f.rem(8);
+                                gap: f.rem(32);
+                                border-radius: f.rem(8);
+                                background: v.$neutral-600;
+                                transition:
+                                    transform 0.2s,
+                                    background 0.2s;
+
+                                &.current-hour {
+                                    background: v.$blue-700;
+                                    color: #fff;
+                                    transform: scale(1.02);
+                                }
+
+                                .start {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: f.rem(8);
+                                }
+
+                                .end {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: flex-end;
+                                    gap: f.rem(4);
+
+                                    .mini-stats {
+                                        display: flex;
+                                        gap: f.rem(6);
+                                        font-size: f.rem(12);
+
+                                        span {
+                                            display: flex;
+                                            align-items: center;
+                                            gap: f.rem(2);
+                                        }
+                                    }
+                                }
+                            }
+                            &::-webkit-scrollbar {
+                                width: f.rem(6);
+                            }
+                            &::-webkit-scrollbar-thumb {
+                                background: v.$neutral-600;
+                                border-radius: f.rem(3);
+                            }
+                            &::-webkit-scrollbar-track {
+                                background: transparent;
+                            }
+                        }
+
+                        @include breakpoint(medium) {
+                            width: 100%; // optional: can remove
+                            max-width: 100%; // ensure it doesn't overflow
+                        }
+                    }
+                }
+            }
+
+            // -------------------------
+            // Loading Skeleton(s)
+            // -------------------------
+            .results-skeleton {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "current"
+                    "stats"
+                    "daily"
+                    "hourly";
+                gap: f.rem(32);
+                padding-block: f.rem(32);
+
+                // 🔹 CurrentWeather Skeleton
+                .current-weather-skeleton {
+                    grid-area: current;
+                    background: v.$neutral-800;
+                    border-radius: f.rem(16);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: f.rem(300);
+
+                    .loading-box {
+                        text-align: center;
+
+                        .spinner {
+                            font-size: f.rem(24);
+                            display: flex;
+                            gap: f.rem(4); // spacing between dots
+                            justify-content: center;
+
+                            span {
+                                font-size: f.rem(24);
+                                display: inline-block;
+                                animation: bounce 1.5s infinite ease-in-out;
+                            }
+
+                            // Delay each dot so they bounce 1 by 1
+                            span:nth-child(1) {
+                                animation-delay: 0s;
+                            }
+                            span:nth-child(2) {
+                                animation-delay: 0.3s;
+                            }
+                            span:nth-child(3) {
+                                animation-delay: 0.6s;
+                            }
+                        }
+
+                        p {
+                            font-size: f.rem(14);
+                            color: var(--text-muted, #aaa);
+                        }
+                    }
+                }
+
+                // 🔹 StatsGrid Skeleton
+                .stats-skeleton {
+                    grid-area: stats;
+                    display: flex;
+                    gap: f.rem(16);
+                    flex-wrap: wrap;
+                    .stat-card {
+                        flex: 1;
+                        background: v.$neutral-800;
+                        border-radius: f.rem(12);
+                        padding: f.rem(16);
+                        display: flex;
+                        gap: f.rem(4);
+
+                        .icon {
+                            font-size: f.rem(24);
+                            display: block;
+                        }
+
+                        p {
+                            font-size: f.rem(12);
+                            color: var(--text-muted, #aaa);
+                        }
+
+                        h3 {
+                            font-size: f.rem(18);
+                            font-weight: v.$font-bold;
+                        }
+                    }
+                }
+
+                // 🔹 Daily Forecast Skeleton
+                .daily-forecast-skeleton {
+                    grid-area: daily;
+                    display: flex;
+                    flex-direction: column;
+                    gap: f.rem(16);
+
+                    .daily-grid {
+                        flex: 1;
+                        display: flex;
+                        gap: f.rem(12);
+                        flex-wrap: wrap;
+
+                        .day-card-skeleton {
+                            flex: 1;
+                            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                        }
+                    }
+                }
+
+                // 🔹 Hourly Forecast Skeleton
+                .hourly-forecast-skeleton {
+                    grid-area: hourly;
+                    display: flex;
+                    flex-direction: column;
+                    background: v.$neutral-800;
+                    border-radius: f.rem(12);
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                    .forecast-header {
+                        display: flex;
+                        padding: f.rem(16);
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-shrink: 0;
+                        select {
+                            padding: 0.4rem;
+                            border-radius: 0.5rem;
+                            background-color: v.$neutral-600;
+                            color: v.$neutral-0;
+                        }
+                    }
+                    .forecast-list {
+                        padding: f.rem(16);
+                        display: flex;
+                        flex-direction: column;
+                        gap: f.rem(12);
+                        .hour-card-skeleton {
+                            border-radius: f.rem(8);
+                        }
+                    }
+                }
+
+                // 🔹 Responsive
+                @include breakpoint(medium) {
+                    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+
+                    grid-template-areas:
+                        "current hourly"
+                        "stats hourly"
+                        "daily hourly";
+
+                    padding-block: f.rem(32);
+                }
+            }
+
+            // -------------------------
+            // Error Page & No results page
+            // -------------------------
+            .state-page {
+                width: 100%;
+                padding: f.rem(32);
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: f.rem(16);
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: var(--text-color);
+
+                &.error-page {
+                    .icon {
+                        font-size: f.rem(32);
+                    }
+
+                    h2 {
+                        font-size: f.rem(24);
+                    }
+
+                    button {
+                        padding: f.rem(10) f.rem(16);
+                        background: rgba(255, 255, 255, 0.3);
+                        backdrop-filter: blur(10px);
+                        transition: background 0.3s;
+                        gap: f.em(8);
+                        color: #fff;
+                        font-size: f.rem(16);
+                        &:hover {
+                            background: rgba(255, 255, 255, 0.2);
+                        }
+                    }
+                }
+                &.no-results-page {
+                    p {
+                        font-size: f.rem(28);
+                        color: var(--color-text);
+                    }
+                }
+            }
+        }
+
+        // -------------------------
+        // Footer
+        // -------------------------
+        .footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-size: f.rem(11);
+            padding-block: f.rem(32);
+            .socials {
+                display: flex;
+                justify-content: center;
+                gap: f.rem(24);
+                .social__icon {
+                    color: lightskyblue;
+                    &:hover,
+                    &:focus,
+                    &:focus-visible {
+                        color: v.$orange-500;
+                    }
+                }
+            }
+
+            .attribution {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: f.rem(2);
+                a {
+                    font-weight: v.$font-bolder;
+                    color: v.$neutral-200;
+                    &:hover,
+                    &:focus,
+                    &:focus-visible {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
 }
