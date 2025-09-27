@@ -49,3 +49,23 @@ export default function WeatherIcon({ code, size = 32 }) {
         />
     );
 }
+
+/**
+ * Maps weather codes to effect classes
+ */
+export function weatherCodeToEffect(code) {
+    if (code === 0) return "clear"; // Clear sky
+    if (code === 1) return "mostly-clear"; // Mainly clear
+    if (code === 2) return "partly-cloudy"; // Partly cloudy
+    if (code === 3) return "cloudy"; // Overcast 
+
+    if ([45, 48].includes(code)) return "fog"; // Fog / rime fog
+
+    if (code >= 51 && code <= 55) return "drizzle"; // Drizzle
+    if (code >= 61 && code <= 67) return "rain"; // Rain
+    if (code >= 71 && code <= 77) return "snow"; // Snow
+    if (code >= 80 && code <= 82) return "rain"; // Rain showers
+
+    if (code >= 95 && code <= 99) return "thunder";
+    return "clear";
+}

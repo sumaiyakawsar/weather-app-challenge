@@ -1,9 +1,11 @@
-import { FaFacebookF, FaPinterestP, FaInstagram } from "react-icons/fa6"; 
+import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa6";
 
 export default function Footer() {
     const socials = [
-        { icon: <FaFacebookF />, href: "https://www.facebook.com/Sumaiya.Kawsar/", label: "facebook" },
-        { icon: <FaPinterestP />, href: "https://www.pinterest.com/sumaiyakawsar693/", label: "pinterest" },
+        {
+            icon: <FaLinkedin />, href: "https://www.linkedin.com/in/sumaiyakawsar/", label: "linkedin"
+        },
+        { icon: <FaGithub />, href: "https://github.com/sumaiyakawsar", label: "github" },
         { icon: <FaInstagram />, href: "https://www.instagram.com/devsume/", label: "instagram" },
     ];
     return (

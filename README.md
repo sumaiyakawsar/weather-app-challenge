@@ -35,7 +35,7 @@
 
  
 ## Overview
- <!-- ![Time taken Badge](https://img.shields.io/badge/Time_Taken-1hr_20m-6abecd?style=plastic)  -->
+![wakatime](https://wakatime.com/badge/github/sumaiyakawsar/weather-app-challenge.svg)
 
 ### The challenge
 
@@ -53,9 +53,11 @@ Users should be able to:
  
 - [x] Add geolocation detection to automatically show weather for the user's current location on first visit
 - [x] Include UV index, visibility, and air pressure data (available via Open-Meteo)
-- [x] Implement voice search functionality
-- [ ] Add sunrise/sunset times with visual indicators
-- [ ] Add animated weather backgrounds that change based on current conditions
+- [x] Implement voice search functionality 
+  
+  
+- [x] Add sunrise/sunset times with visual indicators
+- [x] Add animated weather backgrounds that change based on current conditions
 - [ ] Create dark/light mode themes that adapt to the time of day
 - [ ] Implement a "Compare Locations" feature to view weather side-by-side for multiple locations
 - [ ] Implement a favorites/saved locations system where users can bookmark frequently checked locations
@@ -120,9 +122,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 - [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
 - [react-speech-recognition](https://www.youtube.com/watch?v=xJ_V55awyIo)
 - [react-loading-skeleton](https://www.youtube.com/watch?v=g74Q0wRc6BQ&t=63s)
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
-
+ 
 ## Author
 
 <!-- - Website - [Add your name here](https://www.your-site.com) -->

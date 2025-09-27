@@ -16,7 +16,7 @@ export async function getLocationName(lat, lon) {
         name = name.replace(" Region", "");
     }
 
-    // console.log(data);
+    console.log(data);
     return {
         name,
         country: data.address.country,
