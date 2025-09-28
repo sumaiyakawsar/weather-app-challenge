@@ -32,7 +32,8 @@
     "globals": "^16.3.0",
     "knip": "^5.64.0",
     "sass": "^1.92.1",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "vite-plugin-pwa": "^1.0.3"
   },
   "description": "Weather App Challenge by frontend mentor ",
   "main": "eslint.config.js",

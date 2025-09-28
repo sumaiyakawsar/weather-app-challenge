@@ -11,12 +11,12 @@ export async function getLocationName(lat, lon) {
     const { city, town, village, state, county } = data.address;
     let name = city || town || village || state || county || "Unknown";
 
-    // Strip "Region" from Saudi Arabia state names
+    // Strip "Region" from state names
     if (name && name.endsWith(" Region")) {
         name = name.replace(" Region", "");
     }
 
-    console.log(data);
+    // console.log(data);
     return {
         name,
         country: data.address.country,

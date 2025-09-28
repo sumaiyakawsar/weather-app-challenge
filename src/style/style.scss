@@ -81,6 +81,10 @@ body {
             justify-content: space-between;
             .logo {
                 cursor: pointer;
+                width: 200px;
+                height: 40px;
+                max-width: 100%;
+                height: auto; /* maintains aspect ratio */
             }
             .right {
                 display: flex;
@@ -702,7 +706,6 @@ body {
             padding-block: f.rem(32);
 
             .results {
-
                 width: 100%;
                 max-width: 100%;
                 display: grid;
@@ -1030,6 +1033,7 @@ body {
                                         padding: f.rem(2) f.rem(8);
                                         font-weight: v.$font-bold;
                                         font-size: f.rem(10);
+                                        color:v.$neutral-0;
                                     }
                                 }
                             }

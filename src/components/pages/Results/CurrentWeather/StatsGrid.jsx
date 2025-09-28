@@ -40,17 +40,17 @@ function StatsGrid({ data, units }) {
         : uv >= 6
           ? "#f57f17"
           : uv >= 3
-            ? "#f9a825"
+            ? "#fbc02d"
             : "#4caf50";
 
 
   const stats = [
     { label: "UV Index", value: uv ?? "—", badge: uvLevel, badgeColor: uvColor, icon: <WiDaySunny size={28} /> },
-    { label: "Visibility", value: visibility_m ? `${(visibility_m / 1000).toFixed(1)} km` : "—", icon: <WiDayFog  size={28}/> },
-    { label: "Pressure", value: pressure_hPa ? `${Math.round(pressure_hPa)} hPa` : "—", icon: <WiBarometer  size={28}/> },
-    { label: "Feels Like", value: `${hourly?.apparent_temperature?.[idx] ?? "—"} ${units.temperature}`, icon: <WiThermometer  size={28}/> },
-    { label: "Humidity", value: `${hourly?.relative_humidity_2m?.[idx] ?? "—"}%`, icon: <WiHumidity  size={28}/> },
-    { label: "Wind Speed", value: `${current?.windspeed ?? "—"} ${units.wind}`, icon: <WiStrongWind  size={28}/> },
+    { label: "Visibility", value: visibility_m ? `${(visibility_m / 1000).toFixed(1)} km` : "—", icon: <WiDayFog size={28} /> },
+    { label: "Pressure", value: pressure_hPa ? `${Math.round(pressure_hPa)} hPa` : "—", icon: <WiBarometer size={28} /> },
+    { label: "Feels Like", value: `${hourly?.apparent_temperature?.[idx] ?? "—"} ${units.temperature}`, icon: <WiThermometer size={28} /> },
+    { label: "Humidity", value: `${hourly?.relative_humidity_2m?.[idx] ?? "—"}%`, icon: <WiHumidity size={28} /> },
+    { label: "Wind Speed", value: `${current?.windspeed ?? "—"} ${units.wind}`, icon: <WiStrongWind size={28} /> },
     {
       label: "Wind Direction",
       value: `${current?.winddirection ?? "—"}°`,

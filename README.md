@@ -3,11 +3,11 @@
  
 <div align="center">
   <h3>
-    <a href="https://sumaiyakawsar.github.io/frontend-mentor-challenges-using-react/#/project61">
+    <a href="https://sumaiyakawsar.github.io/">
       Demo
     </a>
     <span> | </span>
-    <a href="https://github.com/sumaiyakawsar/frontend-mentor-challenges-using-react/tree/main/src/pages/61-age-calculator">
+    <a href="https://github.com/sumaiyakawsar/">
       Solution
     </a>
     <span> | </span>
@@ -59,14 +59,13 @@ Users should be able to:
 - [x] Create dark/light mode themes that adapt to the time of day 
 - [x] Implement a favorites/saved locations system where users can bookmark frequently checked locations
 - [x] Implement a "Compare Locations" feature to view weather side-by-side for multiple locations
-- [ ]  
-- [ ] Add progressive web app (PWA) capabilities for mobile installation
+- [x] Add progressive web app (PWA) capabilities for mobile installation
 
 
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./Screenshot.png)
 
  
  
@@ -116,12 +115,11 @@ Use this section to outline areas that you want to continue focusing on in futur
 **Note: Delete this note and the content within this section and replace with your own plans for continued development.**
 
 ### Useful resources
+- [PWC resource](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf) - This is an amazing article which helped me finally understand PWC. I'd recommend it to anyone still learning this concept.
+- [Voice search resource](https://www.youtube.com/watch?v=xJ_V55awyIo)
+- [Skeleton resource](https://www.youtube.com/watch?v=g74Q0wRc6BQ&t=63s)
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-- [react-speech-recognition](https://www.youtube.com/watch?v=xJ_V55awyIo)
-- [react-loading-skeleton](https://www.youtube.com/watch?v=g74Q0wRc6BQ&t=63s)
- 
+
 ## Author
 
 <!-- - Website - [Add your name here](https://www.your-site.com) -->

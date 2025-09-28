@@ -44,7 +44,7 @@ export async function getWeather(lat, lon, apiParams = {}) {
 
     try {
         const res = await fetch(`${WEATHER_URL}?${params}`);
-        console.log(`API call for ${lat},${lon}:`, res.status, res.statusText);
+        // console.log(`API call for ${lat},${lon}:`, res.status, res.statusText);
 
         if (!res.ok) throw new Error(`Failed to fetch weather: ${res.status}`);
 

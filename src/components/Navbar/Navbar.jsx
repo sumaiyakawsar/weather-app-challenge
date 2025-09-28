@@ -1,13 +1,14 @@
 import logo from "../../assets/logo.svg"
 import { refreshClick } from "../../utils/utils"
+import InstallButton from "../Subcomponents/InstallButton";
 import CompareMenu from "./Compare/CompareMenu";
 import FavoritesMenu from "./FavouritesMenu";
 import UnitsMenu from "./UnitsMenu"
 import { FiSun, FiMoon } from 'react-icons/fi';
 
-export default function Navbar({ 
+export default function Navbar({
     onFavoriteSelect,
-    favoritesUpdated, 
+    favoritesUpdated,
     onUnitsChange, onSystemChange,
     theme, onThemeToggle,
     units,
@@ -22,6 +23,8 @@ export default function Navbar({
                 alt="logo"
                 onClick={refreshClick}
                 className="logo"
+                width={200}
+                height={40}
             />
 
             <div className="right">
@@ -40,18 +43,19 @@ export default function Navbar({
                     favoritesUpdated={favoritesUpdated} />
 
                 {/* Theme indicator & toggle */}
-                <button className="theme-toggle" onClick={onThemeToggle}>
+                <button className="theme-toggle"
+                    onClick={onThemeToggle}
+                    aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
+                >
                     {theme === "light" ? <FiSun size={22} className="icon" /> : <FiMoon size={22} className="icon" />}
                 </button>
-
+                <InstallButton />
                 {/* Unit Change Menu */}
                 <UnitsMenu
                     onUnitsChange={onUnitsChange}
                     onSystemChange={onSystemChange}
                 />
             </div>
-
-
         </nav>
 
     )
