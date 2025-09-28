@@ -56,9 +56,9 @@ Users should be able to:
 - [x] Implement voice search functionality 
 - [x] Add sunrise/sunset times with visual indicators
 - [x] Add animated weather backgrounds that change based on current conditions
-- [ ]  
 - [x] Create dark/light mode themes that adapt to the time of day 
-- [ ] Implement a favorites/saved locations system where users can bookmark frequently checked locations
+- [x] Implement a favorites/saved locations system where users can bookmark frequently checked locations
+- [ ]  
 - [ ] Implement a "Compare Locations" feature to view weather side-by-side for multiple locations
 - [ ] Add progressive web app (PWA) capabilities for mobile installation
 

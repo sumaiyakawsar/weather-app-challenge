@@ -3,15 +3,61 @@ import WeatherIcon, { weatherCodeToEffect } from '../../../Subcomponents/Weather
 import { formatLocalDate, formatLocalTime, localISOToEpochMs } from '../../../../utils/dateUtils';
 import PhaseProgress from './PhaseProgress';
 import WeatherEffects from '../../../Subcomponents/WeatherEffects';
+import { isFavorite, addFavorite, removeFavorite } from "../../../../utils/favorites";
+import { FaHeart } from "react-icons/fa";
 
-function CurrentWeather({ data, place, units, timezone }) {
+function CurrentWeather({ data, place, units, onFavoriteChange, timezone }) {
 
   const current = data?.current_weather;
   const daily = data?.daily || {};
 
+
+  const [favorite, setFavorite] = useState(false);
+
+  useEffect(() => {
+    if (!data || !place) return;
+
+    const [name, country = ""] = place.split(",").map(s => s.trim());
+
+    setFavorite(
+      isFavorite({
+        lat: Number(data.latitude),
+        lon: Number(data.longitude),
+        name,
+        country,
+      })
+    );
+  }, [data, place]);
+ 
+  const toggleFavorite = () => {
+    if (!data || !place) return;
+
+    const [name, country = ""] = place.split(",").map(s => s.trim());
+
+    const loc = {
+      lat: Number(data.latitude),
+      lon: Number(data.longitude),
+      name,
+      country,
+    };
+
+    if (favorite) {
+      removeFavorite(loc);
+      setFavorite(false);
+    } else {
+      addFavorite(loc);
+      setFavorite(true);
+    }
+    onFavoriteChange?.();
+  };
+
+
+
+
+
+
   // Live UTC timestamp
   const [now, setNow] = useState(new Date());
-
 
   useEffect(() => {
     const interval = setInterval(() => setNow(new Date()), 1000);
@@ -34,6 +80,7 @@ function CurrentWeather({ data, place, units, timezone }) {
   const formattedTime = formatLocalTime(now, timezone);
 
 
+
   //  For Testing Purposes
   // console.log(current?.is_day);
   // const testWeatherCode = 45; // rain
@@ -54,6 +101,22 @@ function CurrentWeather({ data, place, units, timezone }) {
                 windSpeed={current.windspeed}
                 windDirection={current?.winddirection}
             /> */}
+
+      <div className="action-buttons">
+
+        {/* Favorite button */}
+        <div className="favorite-btn"
+          onClick={toggleFavorite}
+          title={favorite ? "Remove from favorites" : "Add to favorites"}
+        >
+          <FaHeart
+            size={20}
+            color={favorite ? "red" : "gray"}
+            className="icon"
+          />
+        </div>
+ 
+      </div>
       <div className="content">
         <div className="location__date">
           <div className="place">{place}</div>

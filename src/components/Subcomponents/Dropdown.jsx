@@ -1,7 +1,17 @@
 import { useRef, useState } from "react";
 import { useClickOutside } from "../../utils/utils";
 
-export default function Dropdown({ options, classname, selected, onSelect, labelRenderer, buttonClass, listClass, renderItem }) {
+export default function Dropdown({
+    options,
+    classname,
+    selected,
+    onSelect,
+    labelRenderer,
+    buttonClass,
+    listClass,
+    renderItem,
+    emptyMessage = null
+}) {
     const [open, setOpen] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(0);
     const ref = useRef(null);
@@ -52,18 +62,22 @@ export default function Dropdown({ options, classname, selected, onSelect, label
 
             {open && (
                 <ul className={listClass} role="listbox">
-                    {options.map((option, idx) => (
-                        <li
-                            key={option.name || option}
-                            role="option"
-                            aria-selected={selected === option}
-                            className={highlightedIndex === idx ? "highlighted" : ""}
-                            onClick={() => { onSelect(option); setOpen(false); }}
-                            onMouseEnter={() => setHighlightedIndex(idx)}
-                        >
-                            {renderItem ? renderItem(option) : option.name || option}
-                        </li>
-                    ))}
+                    {options.length === 0 ? (
+                        <li className="empty-message">{emptyMessage}</li>
+                    ) : (
+                        options.map((option, idx) => (
+                            <li
+                                key={option.name || option}
+                                role="option"
+                                aria-selected={selected === option}
+                                className={highlightedIndex === idx ? "highlighted" : ""}
+                                onClick={() => { onSelect(option); setOpen(false); }}
+                                onMouseEnter={() => setHighlightedIndex(idx)}
+                            >
+                                {renderItem ? renderItem(option) : option.name || option}
+                            </li>
+                        ))
+                    )}
                 </ul>
             )}
         </div>

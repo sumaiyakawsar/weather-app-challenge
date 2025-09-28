@@ -3,7 +3,7 @@ import StatsGrid from './CurrentWeather/StatsGrid'
 import DailyForecast from './DailyForecast/DailyForecast'
 import HourlyForecast from './HourlyForecast/HourlyForecast'
 
-export default function ResultsContainer({ weather, location, units }) {
+export default function ResultsContainer({ weather, location, units,onFavoriteChange }) {
   if (!weather || !location) return null;
 
   return (
@@ -11,7 +11,8 @@ export default function ResultsContainer({ weather, location, units }) {
       <CurrentWeather
         data={weather}
         place={`${location.name}, ${location.country}`}
-        units={units}
+        units={units} 
+        onFavoriteChange={onFavoriteChange}
         timezone={weather?.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone}
 
       />

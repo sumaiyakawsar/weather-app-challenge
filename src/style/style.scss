@@ -29,6 +29,11 @@ button {
     padding: f.rem(8);
     cursor: pointer;
     box-shadow: 0 f.rem(2) f.rem(6) rgba(0, 0, 0, 0.15);
+    .icon {
+        &.heart-icon {
+            color: red;
+        }
+    }
 }
 
 button,
@@ -48,15 +53,13 @@ img {
     display: block;
 }
 body {
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: var(--color-bg); 
 }
 .weather-app {
     min-height: 100dvh;
     line-height: 1.5;
     font-family: v.$bg-font;
-    color: v.$neutral-0;
-    // background: v.$neutral-900;
+    color: v.$neutral-0; 
     .container {
         flex: 1;
         min-height: 100dvh;
@@ -84,6 +87,64 @@ body {
                 justify-content: center;
                 gap: f.rem(16);
 
+                .favorites-menu {
+                    position: relative;
+                    display: inline-block;
+
+                    .favorites-btn {
+                        position: relative;
+
+                        .badge {
+                            position: absolute;
+                            top: -6px;
+                            right: -6px;
+                            background: red;
+                            color: white;
+                            font-size: f.rem(12);
+                            padding: 2px 6px;
+                            border-radius: 50%;
+                            font-weight: bold;
+                        }
+                    }
+                    .favorites-list {
+                        display: block;
+                        position: absolute;
+                        top: 100%;
+                        right: 0;
+                        background: v.$neutral-800;
+                        border-radius: f.rem(8);
+                        padding: f.rem(8);
+                        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+                        margin-top: f.rem(10);
+                        border: v.$neutral-700 0.2px solid;
+                        min-width: max-content;
+                        width: 100%;
+                        z-index: 10;
+                        animation: fadeIn 0.25s ease;
+
+                        li {
+                            padding: f.rem(8);
+                            border-radius: f.rem(8);
+                            cursor: pointer;
+                            transition: background 0.2s;
+
+                            &:hover,
+                            &:focus,
+                            &.highlighted,
+                            &:focus-visible {
+                                background: rgba(255, 255, 255, 0.1);
+                            }
+                        }
+
+                        .no-favorites {
+                            color: #999;
+                            font-style: italic;
+                            pointer-events: none; // 🔹 makes sure it's not clickable
+                            cursor: none;
+                            background: transparent;
+                        }
+                    }
+                }
                 .units-menu {
                     position: relative;
                     display: inline-block;
@@ -442,6 +503,41 @@ body {
                             pointer-events: none;
                             z-index: 0;
                         }
+
+                        .action-buttons {
+                            position: absolute;
+                            top: f.rem(16);
+                            right: f.rem(16);
+                            z-index: 4;
+                            .favorite-btn {
+                                backdrop-filter: blur(10px) saturate(180%);
+                                -webkit-backdrop-filter: blur(10px) saturate(180%);
+                                background: rgba(255, 255, 255, 0.15); // glass effect
+                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                padding: 0.7rem;
+                                border-radius: 50%;
+                                display: grid;
+                                place-content: center;
+                                cursor: pointer;
+                                transition:
+                                    transform 0.3s ease,
+                                    background 0.3s ease;
+                                .icon {
+                                    transition:
+                                        filter 0.3s ease,
+                                        color 0.3s ease;
+                                    filter: drop-shadow(0 0 0px transparent);
+                                }
+
+                                &:hover {
+                                    background: rgba(255, 255, 255, 0.25);
+                                    .icon {
+                                        filter: drop-shadow(0 0 6px red) drop-shadow(0 0 12px red);
+                                    }
+                                }
+                            }
+                        }
+
                         .content {
                             width: 100%;
                             display: grid;
@@ -1149,7 +1245,7 @@ body {
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                color: var(--text-color);
+                color: v.$neutral-0; //color: var(--color-text);
 
                 &.error-page {
                     .icon {
@@ -1166,7 +1262,6 @@ body {
                         backdrop-filter: blur(10px);
                         transition: background 0.3s;
                         gap: f.em(8);
-                        color: #fff;
                         font-size: f.rem(16);
                         &:hover {
                             background: rgba(255, 255, 255, 0.2);
@@ -1176,7 +1271,6 @@ body {
                 &.no-results-page {
                     p {
                         font-size: f.rem(28);
-                        color: var(--color-text);
                     }
                 }
             }

@@ -27,6 +27,8 @@ function App() {
     setInitialLoadDone(false); // This will trigger the geolocation again
   };
 
+  const [favoritesUpdated, setFavoritesUpdated] = useState(0);
+  const handleFavoriteChange = () => setFavoritesUpdated((prev) => prev + 1);
 
   // 🌗 Theme Handling (refactored into hook)
   const { theme, toggleTheme } = useTheme(weather);
@@ -35,6 +37,11 @@ function App() {
     <div className="weather-app">
       <main className="container">
         <Navbar
+          onFavoriteSelect={(loc) => {
+            setLocation(loc);
+            setStatus("loading");
+          }}
+          favoritesUpdated={favoritesUpdated}
           onUnitsChange={setDisplayUnits}
           onSystemChange={() => setDisplayUnits((prev) => ({ ...prev }))}
           onThemeToggle={toggleTheme}
@@ -63,7 +70,8 @@ function App() {
             <ResultsContainer
               weather={weather}
               location={location}
-              units={displayUnits} />
+              units={displayUnits}
+              onFavoriteChange={handleFavoriteChange} />
           )}
 
         </div>
