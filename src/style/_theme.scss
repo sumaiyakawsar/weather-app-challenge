@@ -1,0 +1,55 @@
+:root {
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --neutral-900: hsl(243, 96%, 9%);
+    --neutral-800: hsl(243, 27%, 20%);
+    --neutral-700: hsl(243, 23%, 24%);
+    --neutral-600: hsl(243, 23%, 30%);
+    --neutral-300: hsl(240, 6%, 70%);
+    --neutral-200: hsl(250, 6%, 84%);
+    --neutral-0: hsl(0, 0%, 100%);
+    --black: #000000;
+    // Orange
+    --orange-500: hsl(28, 100%, 52%);
+
+    // Blue
+    --blue-500: hsl(233, 67%, 56%);
+    --blue-700: hsl(248, 70%, 36%);
+}
+
+[data-theme="dark"] {
+    --color-bg: var(--neutral-900);
+    --color-text: var(--neutral-0);
+    --color-accent: var(--blue-500);
+    --card-bg: var(--neutral-800);
+    --current-hour:var(--blue-500);
+
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] {
+    --color-bg: var(--neutral-900);
+    --color-text: var(--black);
+    --color-accent: var(--orange-500);
+    --card-bg: var(--neutral-800);
+    --current-hour:var(--orange-500);
+
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+/* Dark theme adjustments */
+[data-theme="dark"] .skeleton-card {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .skeleton-card {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="light"] .skeleton-remove-btn,
+[data-theme="light"] .skeleton-location,
+[data-theme="light"] .skeleton-icon,
+[data-theme="light"] .skeleton-temperature,
+[data-theme="light"] .skeleton-stat-icon,
+[data-theme="light"] .skeleton-stat-label,
+[data-theme="light"] .skeleton-stat-value {
+    background-color: rgba(0, 0, 0, 0.1);
+}

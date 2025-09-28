@@ -54,13 +54,12 @@ Users should be able to:
 - [x] Add geolocation detection to automatically show weather for the user's current location on first visit
 - [x] Include UV index, visibility, and air pressure data (available via Open-Meteo)
 - [x] Implement voice search functionality 
-  
-  
 - [x] Add sunrise/sunset times with visual indicators
 - [x] Add animated weather backgrounds that change based on current conditions
-- [ ] Create dark/light mode themes that adapt to the time of day
-- [ ] Implement a "Compare Locations" feature to view weather side-by-side for multiple locations
+- [ ]  
+- [x] Create dark/light mode themes that adapt to the time of day 
 - [ ] Implement a favorites/saved locations system where users can bookmark frequently checked locations
+- [ ] Implement a "Compare Locations" feature to view weather side-by-side for multiple locations
 - [ ] Add progressive web app (PWA) capabilities for mobile installation
 
 

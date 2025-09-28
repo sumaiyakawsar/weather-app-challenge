@@ -1,7 +1,8 @@
 @use "functions" as f;
 @use "variables" as v;
 @use "animations" as *;
-@use "mq" as *; 
+@use "mq" as *;
+@use "theme" as *;
 
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;500;600;700;1,9..40,300;500;600;700;&display=swap");
 
@@ -46,15 +47,18 @@ h2 {
 img {
     display: block;
 }
-
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
 .weather-app {
     min-height: 100dvh;
     line-height: 1.5;
     font-family: v.$bg-font;
     color: v.$neutral-0;
-    background: v.$neutral-900;
+    // background: v.$neutral-900;
     .container {
-        flex: 1; // take remaining space between navbar/header and footer
+        flex: 1;
         min-height: 100dvh;
         width: 100%;
         max-width: 80dvw;
@@ -75,6 +79,11 @@ img {
                 cursor: pointer;
             }
             .right {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: f.rem(16);
+
                 .units-menu {
                     position: relative;
                     display: inline-block;
@@ -118,7 +127,7 @@ img {
                         .system-toggle {
                             display: flex;
                             align-items: center;
-                            justify-content: space-between;
+                            justify-content: space-evenly;
                             padding-block: f.rem(8);
                             .system-label {
                                 font-size: f.rem(14);
@@ -133,7 +142,7 @@ img {
                                 }
 
                                 &.active {
-                                    color: v.$orange-500;
+                                    color: var(--color-accent);
                                     font-weight: v.$font-bolder;
                                 }
                             }
@@ -142,7 +151,7 @@ img {
                                 position: relative;
                                 width: f.em(50);
                                 height: f.em(24);
-                                background: v.$orange-500;
+                                background: var(--color-accent);
                                 border-radius: f.rem(12);
                                 border: none;
                                 cursor: pointer;
@@ -151,14 +160,14 @@ img {
                                 margin: 0 f.rem(12);
 
                                 &.toggled {
-                                    background: v.$orange-500;
+                                    background: var(--color-accent);
 
                                     .toggle-slider {
                                         transform: translateX(f.em(26));
                                     }
                                 }
                                 &:hover {
-                                    background: color-mix(in srgb, v.$neutral-0 15%, v.$orange-500 85%);
+                                    background: color-mix(in srgb, v.$neutral-0 15%, var(--color-accent) 85%);
                                 }
                                 .toggle-slider {
                                     position: absolute;
@@ -261,7 +270,7 @@ img {
                         padding: f.rem(8) f.rem(48) f.rem(8) f.rem(40); // space for search + mic
                         border-radius: 9999px; // pill shape
                         font-size: f.rem(16);
-                        background-color: v.$neutral-700;
+                        background-color: v.$neutral-800;
                         color: v.$neutral-300;
                         border: 1px solid transparent;
                         transition: all 0.2s ease;
@@ -349,8 +358,8 @@ img {
 
                 button {
                     padding: f.rem(8) f.rem(20);
-                    background-color: v.$blue-500;
-                    color: #fff;
+                    background-color: var(--color-accent);
+                    color: v.$neutral-0;
                     border: none;
                     border-radius: 9999px; // match pill shape
                     cursor: pointer;
@@ -360,12 +369,7 @@ img {
                         transform 0.1s ease;
 
                     &:hover {
-                        background-color: v.$blue-700;
-                        transform: translateY(-1px);
-                    }
-
-                    &:active {
-                        transform: translateY(0);
+                        background: color-mix(in srgb, v.$neutral-0 25%, var(--color-accent) 75%);
                     }
 
                     &:focus,
@@ -383,7 +387,8 @@ img {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; // centers content for no-results/error
+            justify-content: center;
+            padding-block: f.rem(32);
 
             .results {
                 width: 100%;
@@ -415,7 +420,7 @@ img {
                         position: relative;
                         height: auto;
                         overflow: hidden;
-                        border-radius: f.rem(28); 
+                        border-radius: f.rem(28);
                         padding: f.rem(24);
                         background: url("../assets/bg-today-small.svg");
                         background-repeat: no-repeat;
@@ -424,7 +429,7 @@ img {
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
-                        color: var(--color-text); 
+                        color: var(--color-text);
                         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
                         @include breakpoint(medium) {
                             background: url("../assets/bg-today-large.svg");
@@ -494,8 +499,18 @@ img {
                                     .sunmoon {
                                         cursor: pointer;
                                         transition: all 0.3s ease;
-
                                         position: relative;
+                                        &.day {
+                                            stroke: #f39c12;
+                                            fill: yellow;
+                                            filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.9));
+                                        }
+
+                                        &.night {
+                                            stroke: #a0a0a0;
+                                            fill: #ddd;
+                                            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+                                        }
                                     }
                                 }
                                 .tooltip {
@@ -595,7 +610,7 @@ img {
                                 display: flex;
                                 flex-direction: column;
                                 padding: f.rem(10);
-                                background: v.$neutral-700;
+                                background: v.$neutral-800;
 
                                 &-front,
                                 &-back {
@@ -695,29 +710,40 @@ img {
                             flex: 1;
                             display: grid;
                             grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
-
                             gap: f.rem(16);
 
                             .day__card {
-                                background: v.$neutral-700;
+                                // cursor: pointer;
+                                -webkit-tap-highlight-color: transparent;
+                                background: var(--card-bg);
                                 border-radius: f.rem(12);
                                 position: relative;
                                 overflow: hidden;
                                 transition: all 0.3s ease;
-
                                 display: flex;
                                 flex-direction: column;
                                 justify-content: center;
-                                padding: f.rem(16);
+
+                                &-gradient {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    height: 3px;
+                                    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+                                    transition: height 0.3s ease;
+                                }
                                 &-content {
+                                    padding: f.rem(16);
                                     display: flex;
                                     flex-direction: column;
                                     gap: f.rem(16);
-
+                                    position: relative;
+                                    height: 100%;
                                     .day-header {
                                         display: flex;
-                                        // justify-content: space-between;
-                                        flex-direction: column;
+                                        justify-content: space-between;
+
                                         gap: f.rem(16);
                                         align-items: center;
                                         transition: opacity 0.3s ease;
@@ -746,6 +772,61 @@ img {
                                             font-size: f.rem(16);
                                             color: v.$neutral-300;
                                         }
+                                    }
+                                }
+
+                                .weather-stats-overlay {
+                                    position: absolute;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
+                                    background: rgba(0, 0, 0, 0.9);
+                                    backdrop-filter: blur(2px);
+                                    padding: f.rem(16);
+                                    transform: translateY(100%);
+                                    transition: transform 0.3s ease;
+                                    border-radius: 0 0 f.rem(12) f.rem(12);
+                                    .weather-stats {
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: f.rem(4);
+                                        width: 100%;
+
+                                        .stat {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            gap: f.rem(8);
+
+                                            .stat-icon {
+                                                font-size: 1.1rem;
+                                                color: #63b3ed;
+                                            }
+
+                                            .stat-value {
+                                                font-size: 0.8rem;
+                                                font-weight: 600;
+                                                color: #e2e8f0;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                &:hover,
+                                &:active {
+                                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+
+                                    .card-gradient {
+                                        height: 6px;
+                                    }
+
+                                    .weather-stats-overlay {
+                                        transform: translateY(0);
+                                    }
+
+                                    .day-header,
+                                    .temperature-range {
+                                        opacity: 0.7;
                                     }
                                 }
                             }
@@ -843,13 +924,13 @@ img {
                                 padding: f.rem(8);
                                 gap: f.rem(32);
                                 border-radius: f.rem(8);
-                                background: v.$neutral-600;
+                                background: v.$neutral-700;
                                 transition:
                                     transform 0.2s,
                                     background 0.2s;
 
                                 &.current-hour {
-                                    background: v.$blue-700;
+                                    background: var(--color-accent);
                                     color: #fff;
                                     transform: scale(1.02);
                                 }

@@ -1,10 +1,11 @@
 import logo from "../../assets/logo.svg"
 import { refreshClick } from "../../utils/utils"
 import UnitsMenu from "./UnitsMenu"
+import { FiSun, FiMoon } from 'react-icons/fi';
 
 export default function Navbar({
-    onUnitsChange,
-    onSystemChange,
+    onUnitsChange, onSystemChange,
+    theme, onThemeToggle,
 }) {
     return (
         <nav className="navbar">
@@ -16,6 +17,12 @@ export default function Navbar({
             />
 
             <div className="right">
+
+                {/* Theme indicator & toggle */}
+                <button className="theme-toggle" onClick={onThemeToggle}>
+                    {theme === "light" ? <FiSun size={22} className="icon" /> : <FiMoon size={22} className="icon" />}
+                </button>
+
                 <UnitsMenu
                     onUnitsChange={onUnitsChange}
                     onSystemChange={onSystemChange}

@@ -10,6 +10,7 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import ResultsContainer from "./components/pages/Results/ResultsContainer";
 import ResultsSkeleton from "./components/pages/Skeletons/ResultsSkeleton";
 import Footer from "./components/Footer/Footer";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
   const [status, setStatus] = useState("idle"); //idle |  loading | success | no-results | error
@@ -26,12 +27,18 @@ function App() {
     setInitialLoadDone(false); // This will trigger the geolocation again
   };
 
+
+  // 🌗 Theme Handling (refactored into hook)
+  const { theme, toggleTheme } = useTheme(weather);
+
   return (
     <div className="weather-app">
       <main className="container">
         <Navbar
           onUnitsChange={setDisplayUnits}
           onSystemChange={() => setDisplayUnits((prev) => ({ ...prev }))}
+          onThemeToggle={toggleTheme}
+          theme={theme}
         />
         {/* Status-based rendering */}
         {/* Show header only for no-results or success */}

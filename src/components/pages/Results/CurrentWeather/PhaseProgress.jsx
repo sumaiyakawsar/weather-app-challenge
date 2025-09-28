@@ -113,21 +113,21 @@ export default function PhaseProgress({ sunrise, sunset, now, timezone, isDay })
                 </defs>
 
                 {/* Sun or Moon marker */}
-                <circle
-                    className="sunmoon"
+                <circle 
+                    className={`sunmoon ${isDay ? "day" : "night"}`}
                     cx={x}
                     cy={y}
                     r={isDay ? 14 : 12}
-                    fill={isDay ? "yellow" : "#ddd"}
-                    stroke={isDay ? "#FFA500" : "#aaa"}
-                    strokeWidth={3}
+                    fill={isDay ? "yellow" : "#ddd"}//Fallback
+                    stroke={isDay ? "#FFA500" : "#aaa"}//Fallback
+                    strokeWidth={4}
                     onMouseEnter={() => setShowTooltip(true)}
                     onMouseLeave={() => setShowTooltip(false)}
                     style={{
                         filter: isDay
                             ? "drop-shadow(0 0 12px rgba(255,200,0,0.9))"
                             : "drop-shadow(0 0 6px rgba(255,255,255,0.6))",
-                    }}
+                    }}//Fallback
                 />
             </svg>
 
