@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useGeolocation } from "./hooks/useGeolocation";
 import { useWeather } from "./hooks/useWeather";
+import { useCompareList } from "./hooks/useCompareList";
+import { useTheme } from "./hooks/useTheme";
 import { metricUnits } from "./utils/units";
 
 import Navbar from "./components/Navbar/Navbar";
@@ -10,7 +12,6 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import ResultsContainer from "./components/pages/Results/ResultsContainer";
 import ResultsSkeleton from "./components/pages/Skeletons/ResultsSkeleton";
 import Footer from "./components/Footer/Footer";
-import { useTheme } from "./hooks/useTheme";
 
 function App() {
   const [status, setStatus] = useState("idle"); //idle |  loading | success | no-results | error
@@ -26,9 +27,12 @@ function App() {
     setStatus("loading");
     setInitialLoadDone(false); // This will trigger the geolocation again
   };
-
+// Favourite Handling
   const [favoritesUpdated, setFavoritesUpdated] = useState(0);
   const handleFavoriteChange = () => setFavoritesUpdated((prev) => prev + 1);
+
+// Compare 
+  const { compareList, addToCompare, removeFromCompare } = useCompareList();
 
   // 🌗 Theme Handling (refactored into hook)
   const { theme, toggleTheme } = useTheme(weather);
@@ -46,6 +50,9 @@ function App() {
           onSystemChange={() => setDisplayUnits((prev) => ({ ...prev }))}
           onThemeToggle={toggleTheme}
           theme={theme}
+          units={displayUnits}
+          compareList={compareList}
+          onRemoveFromCompare={removeFromCompare}
         />
         {/* Status-based rendering */}
         {/* Show header only for no-results or success */}
@@ -71,7 +78,10 @@ function App() {
               weather={weather}
               location={location}
               units={displayUnits}
-              onFavoriteChange={handleFavoriteChange} />
+              onFavoriteChange={handleFavoriteChange}
+              onCompare={({ place }) => addToCompare({ place, lat: location.lat, lon: location.lon })}
+              compareList={compareList}
+              />
           )}
 
         </div>

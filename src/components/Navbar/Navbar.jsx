@@ -1,5 +1,6 @@
 import logo from "../../assets/logo.svg"
 import { refreshClick } from "../../utils/utils"
+import CompareMenu from "./Compare/CompareMenu";
 import FavoritesMenu from "./FavouritesMenu";
 import UnitsMenu from "./UnitsMenu"
 import { FiSun, FiMoon } from 'react-icons/fi';
@@ -9,6 +10,10 @@ export default function Navbar({
     favoritesUpdated, 
     onUnitsChange, onSystemChange,
     theme, onThemeToggle,
+    units,
+    system,
+    compareList,
+    onRemoveFromCompare
 }) {
     return (
         <nav className="navbar">
@@ -20,6 +25,15 @@ export default function Navbar({
             />
 
             <div className="right">
+
+                {/* Compare menu */}
+                <CompareMenu
+                    compareList={compareList}
+                    onRemove={onRemoveFromCompare}
+                    units={units}
+                    system={system}
+                />
+
                 {/* Favourites Menu */}
                 <FavoritesMenu
                     onSelect={onFavoriteSelect}

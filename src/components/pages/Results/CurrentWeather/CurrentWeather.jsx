@@ -5,8 +5,9 @@ import PhaseProgress from './PhaseProgress';
 import WeatherEffects from '../../../Subcomponents/WeatherEffects';
 import { isFavorite, addFavorite, removeFavorite } from "../../../../utils/favorites";
 import { FaHeart } from "react-icons/fa";
+import { MdCompareArrows } from "react-icons/md";
 
-function CurrentWeather({ data, place, units, onFavoriteChange, timezone }) {
+function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onCompare, compareList }) {
 
   const current = data?.current_weather;
   const daily = data?.daily || {};
@@ -28,7 +29,7 @@ function CurrentWeather({ data, place, units, onFavoriteChange, timezone }) {
       })
     );
   }, [data, place]);
- 
+
   const toggleFavorite = () => {
     if (!data || !place) return;
 
@@ -104,6 +105,26 @@ function CurrentWeather({ data, place, units, onFavoriteChange, timezone }) {
 
       <div className="action-buttons">
 
+        {/* Compare button */}
+        <div
+          className={`compare-btn ${compareList?.length >= 3 ? "disabled" : ""}`}
+          onClick={() => {
+            if (compareList?.length < 3) {
+              onCompare({ data, place });
+            }
+          }}
+          title={compareList?.length >= 3 ? "Max 3 locations allowed" : "Add to Compare"}
+        >
+          <MdCompareArrows
+            size={24}
+            className="icon"
+            color={compareList?.length >= 3 ? "lightgray" : "skyblue"}
+            style={{ cursor: compareList?.length >= 3 ? "not-allowed" : "pointer" }}
+          />
+
+        </div>
+
+
         {/* Favorite button */}
         <div className="favorite-btn"
           onClick={toggleFavorite}
@@ -115,7 +136,9 @@ function CurrentWeather({ data, place, units, onFavoriteChange, timezone }) {
             className="icon"
           />
         </div>
- 
+
+
+
       </div>
       <div className="content">
         <div className="location__date">
