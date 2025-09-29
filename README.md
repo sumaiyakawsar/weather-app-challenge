@@ -41,31 +41,30 @@ This project is my submission for the FM30 Hackathon hosted by Frontend Mentor. 
 I focused on:
 - I tried my best to build a clean, responsive UI with React and SCSS
 - Going beyond the requirements with advanced features like voice search, PWA, compare locations, and more
-- Writing meaningful commits and documenting my journey through this README
-
+ 
 ![wakatime](https://wakatime.com/badge/github/sumaiyakawsar/weather-app-challenge.svg)
  
 ### ✅ Features
 
 Core Requirements:
-🔍 Search weather by location
-🌡️ View current weather: temperature, conditions, location, and extra metrics (feels like, humidity, wind, precipitation)
-📅 Browse 7-day forecast with daily high/low temperatures and weather icons and hourly forecast with day selector
-⚖️ Toggle between Imperial & Metric units (Celsius/Fahrenheit, km/h/mph, mm/inches)
-📱 Responsive layout for all devices
-🖱️ Hover & focus states for interactive elements
+- 🔍 Search weather by location
+- 🌡️ View current weather: temperature, conditions, location, and extra metrics (feels like, humidity, wind, precipitation)
+- 📅 Browse 7-day forecast with daily high/low temperatures and weather icons and hourly forecast with day selector
+- ⚖️ Toggle between Imperial & Metric units (Celsius/Fahrenheit, km/h/mph, mm/inches)
+- 📱 Responsive layout for all devices
+- 🖱️ Hover & focus states for interactive elements
 
 Extra features implemented:
-📍 Geolocation detection (auto weather on first visit)
-☀️ Sunrise/sunset times with visual indicators
-🌈 Animated backgrounds based on weather conditions
-🌗 Dark/Light themes that adapt to time of day
-💾 Favorites/Saved locations system (localStorage)
-🆚 Compare multiple locations side-by-side (localStorage)
-🗣️ Voice search support
-⏳ Skeleton loading states for better UX
-🛰️ Additional metrics: UV index, visibility, air pressure
-📲 PWA support for mobile installation
+- 📍 Geolocation detection (auto weather on first visit)
+- ☀️ Sunrise/sunset times with visual indicators
+- 🌈 Animated backgrounds based on weather conditions
+- 🌗 Dark/Light themes that adapt to time of day
+- 💾 Favorites/Saved locations system (localStorage)
+- 🆚 Compare multiple locations side-by-side (localStorage)
+- 🗣️ Voice search support
+- ⏳ Skeleton loading states for better UX
+- 🛰️ Additional metrics: UV index, visibility, air pressure
+- 📲 PWA support for mobile installation
 
 
 ### 📔Screenshot
