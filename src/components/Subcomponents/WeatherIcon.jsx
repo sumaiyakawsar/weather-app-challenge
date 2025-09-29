@@ -36,7 +36,7 @@ const weatherMap = {
 
 
 
-export default function WeatherIcon({ code, size = 32 }) {
+export default function WeatherIcon({ code, size  }) {
     const weatherData = weatherMap[code] || { icon: Cloud, label: "Overcast" };
 
     return (
@@ -45,6 +45,7 @@ export default function WeatherIcon({ code, size = 32 }) {
             alt="weather icon"
             width={size}
             height={size}
+            className="weather-icon"
             title={weatherData.label}
         />
     );

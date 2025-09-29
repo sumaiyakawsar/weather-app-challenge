@@ -1,4 +1,5 @@
 import usePWAInstallPrompt from "../../hooks/usePWAInstallPrompt";
+import { MdInstallMobile } from "react-icons/md";
 
 export default function InstallButton() {
     const { isInstallable, promptInstall } = usePWAInstallPrompt();
@@ -7,7 +8,7 @@ export default function InstallButton() {
 
     return (
         <button onClick={promptInstall} className="install-btn">
-            Install App
+            <MdInstallMobile title="Install on your phone"/>
         </button>
     );
 }

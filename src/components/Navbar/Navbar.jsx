@@ -1,4 +1,5 @@
 import logo from "../../assets/logo.svg"
+import logoIcon from "../../assets/favicon.svg";
 import { refreshClick } from "../../utils/utils"
 import InstallButton from "../Subcomponents/InstallButton";
 import CompareMenu from "./Compare/CompareMenu";
@@ -7,14 +8,11 @@ import UnitsMenu from "./UnitsMenu"
 import { FiSun, FiMoon } from 'react-icons/fi';
 
 export default function Navbar({
-    onFavoriteSelect,
-    favoritesUpdated,
+    onFavoriteSelect, favoritesUpdated,
     onUnitsChange, onSystemChange,
     theme, onThemeToggle,
-    units,
-    system,
-    compareList,
-    onRemoveFromCompare
+    units, system,
+    compareList, onRemoveFromCompare
 }) {
     return (
         <nav className="navbar">
@@ -22,13 +20,19 @@ export default function Navbar({
                 src={logo}
                 alt="logo"
                 onClick={refreshClick}
-                className="logo"
+                className="logo logo--full"
                 width={200}
                 height={40}
             />
-
+            <img
+                src={logoIcon}
+                alt="logo icon"
+                onClick={refreshClick}
+                className="logo logo--icon"
+                width={40}
+                height={40}
+            />
             <div className="right">
-
                 {/* Compare menu */}
                 <CompareMenu
                     compareList={compareList}
@@ -47,9 +51,13 @@ export default function Navbar({
                     onClick={onThemeToggle}
                     aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
                 >
-                    {theme === "light" ? <FiSun size={22} className="icon" /> : <FiMoon size={22} className="icon" />}
+                    {theme === "light"
+                        ? <FiSun size={22} className="icon" />
+                        : <FiMoon size={22} className="icon" />}
                 </button>
                 <InstallButton />
+
+
                 {/* Unit Change Menu */}
                 <UnitsMenu
                     onUnitsChange={onUnitsChange}
@@ -57,7 +65,5 @@ export default function Navbar({
                 />
             </div>
         </nav>
-
     )
 }
-

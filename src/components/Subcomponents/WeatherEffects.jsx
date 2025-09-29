@@ -72,18 +72,6 @@ export default function WeatherEffects({ condition = "clear", isDay = true, wind
             moveParticle(p);
         };
 
-        // Fog
-        // const drawFog = (p) => {
-        //     ctx.globalAlpha = p.opacity;
-
-        //     ctx.beginPath();
-        //     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        //     ctx.fill();
-
-        //     moveParticle(p, p.dx, p.dy);
-
-        //     ctx.globalAlpha = 1;
-        // };
         // Enhanced drawFog function:
         const drawFog = (p) => {
             // Create a more realistic fog appearance with gradient

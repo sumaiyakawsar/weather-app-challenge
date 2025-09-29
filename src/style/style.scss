@@ -28,7 +28,7 @@ button {
     transition: background-color 0.2s ease;
     padding: f.rem(8);
     cursor: pointer;
-    box-shadow: 0 f.rem(2) f.rem(6) rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow);
     .icon {
         &.heart-icon {
             color: red;
@@ -46,7 +46,7 @@ input {
 }
 
 h2 {
-    font-size: clamp(f.rem(18), f.rem(16) + 0.5vw, f.rem(22));
+    font-size: clamp(f.rem(16), 2vw, f.rem(18));
     font-weight: v.$font-bold;
 }
 img {
@@ -54,9 +54,20 @@ img {
 }
 body {
     background-color: var(--color-bg);
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--color-accent);
+        border-radius: 3px;
+    }
 }
 .weather-app {
-    //position: relative;
     min-height: 100dvh;
     line-height: 1.5;
     font-family: v.$bg-font;
@@ -79,18 +90,25 @@ body {
             width: 100%;
             align-items: center;
             justify-content: space-between;
+
             .logo {
                 cursor: pointer;
-                width: 200px;
-                height: 40px;
-                max-width: 100%;
-                height: auto; /* maintains aspect ratio */
+
+                &--full {
+                    display: none;
+                }
+                &--icon {
+                    display: block;
+                    width: f.em(40);
+                    height: f.em(40);
+                }
             }
+
             .right {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: f.rem(16);
+                gap: f.rem(12);
 
                 .compare-toggle,
                 .favorites-btn {
@@ -122,7 +140,7 @@ body {
                         background: v.$neutral-800;
                         border-radius: f.rem(8);
                         padding: f.rem(8);
-                        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+                        box-shadow: var(--shadow);
                         margin-top: f.rem(10);
                         border: v.$neutral-700 0.2px solid;
                         min-width: max-content;
@@ -145,9 +163,9 @@ body {
                         }
 
                         .no-favorites {
-                            color: #999;
-                            font-style: italic;
-                            pointer-events: none; // 🔹 makes sure it's not clickable
+                            color: v.$neutral-0;
+                            font-style: v.$font-italic;
+                            pointer-events: none;
                             cursor: none;
                             background: transparent;
                         }
@@ -169,10 +187,13 @@ body {
                         align-items: center;
                         gap: f.rem(8);
 
-                        .arrow {
-                            font-size: clamp(f.rem(10), 1.5vw, f.rem(12));
+                        .label-text {
+                            display: none;
                         }
 
+                        .arrow {
+                            display: none;
+                        }
                         &:hover {
                             background: v.$neutral-700;
                         }
@@ -187,7 +208,7 @@ body {
                         border-radius: f.rem(12);
                         padding: f.rem(16);
                         width: f.em(250);
-                        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+                        box-shadow: var(--shadow);
                         z-index: 20;
                         animation: fadeIn 0.25s ease;
                         display: flex;
@@ -248,7 +269,7 @@ body {
                                     background: v.$neutral-0;
                                     border-radius: 50%;
                                     transition: transform 0.3s ease;
-                                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+                                    box-shadow: var(--shadow);
                                 }
                             }
                         }
@@ -283,7 +304,6 @@ body {
                                         cursor: pointer;
                                         color: v.$neutral-0;
                                         transition: background 0.2s;
-
                                         display: flex;
                                         align-items: center;
                                         justify-content: space-between;
@@ -308,6 +328,35 @@ body {
                     }
                 }
             }
+
+            @include breakpoint(tablet) {
+                .logo {
+                    &--full {
+                        display: block;
+                        width: f.em(200);
+                        height: auto;
+                    }
+                    &--icon {
+                        display: none;
+                    }
+                }
+
+                .right {
+                    .units-menu {
+                        .menu-btn {
+                            padding: f.rem(8) f.rem(16);
+                            gap: f.rem(8);
+
+                            .label-text {
+                                display: inline;
+                            }
+                            .arrow {
+                                display: inline;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         .compare-modal-overlay {
@@ -319,15 +368,15 @@ body {
             justify-content: center;
             z-index: 1000;
             backdrop-filter: blur(5px);
-
+            width: 100%;
             .compare-modal {
                 background: linear-gradient(45deg, v.$neutral-900 0%, v.$neutral-800 100%);
                 border-radius: f.rem(24);
                 width: 100%;
-                max-width: 1200px;
+                max-width: f.em(1200);
                 max-height: 90vh;
                 overflow: hidden;
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                box-shadow: var(--shadow);
                 display: flex;
                 flex-direction: column;
                 animation: modalSlideIn 0.3s ease-out;
@@ -348,9 +397,7 @@ body {
                 }
 
                 .close-btn {
-                    background: none;
-                    border: none;
-                    color: white;
+                    color: v.$neutral-0;
                     cursor: pointer;
                     padding: 0.5rem;
                     border-radius: 50%;
@@ -370,7 +417,7 @@ body {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: white;
+                    color: v.$neutral-0;
                     cursor: pointer;
                     transition: background-color 0.2s ease;
                     background: transparent;
@@ -387,20 +434,20 @@ body {
 
                     .compare-grid {
                         display: grid;
-                        grid-template-columns: 1fr; // mobile-first: single column
+                        grid-template-columns: 1fr;
                         gap: f.rem(16);
 
-                        @include breakpoint(small) {
+                        @include breakpoint(tablet) {
                             grid-template-columns: repeat(2, 1fr);
                         }
 
-                        @include breakpoint(medium) {
+                        @include breakpoint(desktop) {
                             grid-template-columns: repeat(3, 1fr);
                         }
 
                         .compare-card {
                             backdrop-filter: blur(10px);
-                            background-color: rgba(0, 0, 0, 0.25); // add this
+                            background-color: rgba(0, 0, 0, 0.25);
                             border-radius: f.rem(16);
                             padding: f.rem(16);
                             position: relative;
@@ -415,7 +462,6 @@ body {
                                 position: absolute;
                                 inset: 0;
                                 pointer-events: none;
-                                // z-index: -99;
                             }
 
                             &.placeholder {
@@ -441,8 +487,8 @@ body {
                                     z-index: 2;
                                 }
                                 .location-name {
-                                    font-size: 1.25rem;
-                                    font-weight: 600;
+                                    font-size: f.rem(20);
+                                    font-weight: v.$font-bold;
 
                                     z-index: 1;
                                 }
@@ -454,12 +500,12 @@ body {
 
                                 .temperature {
                                     font-size: f.rem(32);
-                                    font-weight: 700;
+                                    font-weight: v.$font-bolder;
                                     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
                                 }
                             }
-                            // Stats Grid Styles
 
+                            // Stats Grid Styles
                             .weather__stats {
                                 display: grid;
                                 grid-template-columns: repeat(2, 1fr);
@@ -471,10 +517,10 @@ body {
                                         rgba(255, 255, 255, 0.08) 0%,
                                         rgba(255, 255, 255, 0.03) 100%
                                     );
-                                    border-radius: 0.75rem;
-                                    padding: 1rem;
+                                    border-radius: f.rem(12);
+                                    padding: f.rem(16);
                                     border: 1px solid rgba(255, 255, 255, 0.08);
-                                    min-height: 80px;
+                                    min-height: f.em(80);
                                     display: flex;
                                     flex-direction: column;
                                     align-items: center;
@@ -483,7 +529,7 @@ body {
                                     backdrop-filter: blur(5px);
 
                                     &:hover {
-                                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                                        box-shadow: var(--shadow);
                                     }
 
                                     &__content {
@@ -519,7 +565,7 @@ body {
                                             gap: f.rem(4);
 
                                             .value {
-                                                font-size: 1rem;
+                                                font-size: f.rem(16);
                                                 font-weight: v.$font-bold;
                                                 text-align: center;
                                             }
@@ -538,7 +584,6 @@ body {
                         }
                     }
 
-                    // Custom scrollbar for compare container
                     &::-webkit-scrollbar {
                         width: 6px;
                     }
@@ -561,35 +606,34 @@ body {
             gap: f.rem(48);
             justify-content: center;
             align-items: center;
-            width: 50vw;
+            width: 100%;
+            padding: 0 f.rem(16);
 
             h1 {
                 color: v.$neutral-0;
-                font-size: f.rem(48);
+                text-align: center;
+                font-size: clamp(f.rem(28), 5vw, f.rem(48));
             }
             .search-bar {
                 display: flex;
-                align-items: center;
-                gap: f.rem(8);
-                width: 100%;
-                flex-wrap: wrap;
-                position: relative;
+                flex-direction: column;
+                align-items: stretch;
+                gap: f.rem(12);
+
                 .input-wrapper {
                     position: relative;
                     flex: 1;
-                    display: flex;
-                    align-items: center;
 
                     input {
                         width: 100%;
-                        padding: f.rem(8) f.rem(48) f.rem(8) f.rem(40); // space for search + mic
-                        border-radius: 9999px; // pill shape
+                        padding: f.rem(10) f.rem(48) f.rem(10) f.rem(40);
+                        border-radius: 9999px;
                         font-size: f.rem(16);
                         background-color: v.$neutral-800;
                         color: v.$neutral-300;
                         border: 1px solid transparent;
                         transition: all 0.2s ease;
-                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                        box-shadow: var(--shadow);
 
                         &:hover {
                             border-color: v.$neutral-300;
@@ -638,9 +682,9 @@ body {
                     .clear-icon {
                         cursor: pointer;
                         transition: all 0.2s ease;
-                        right: f.rem(40); // Position to the left of mic icon
+                        right: f.rem(40);
                         &:hover {
-                            color: red; // Red color for clear action
+                            color: red;
                         }
                     }
                     .suggestions-dropdown {
@@ -676,9 +720,10 @@ body {
                     background-color: var(--color-accent);
                     color: v.$neutral-0;
                     border: none;
-                    border-radius: 9999px; // match pill shape
+                    border-radius: 9999px;
                     cursor: pointer;
                     font-size: f.rem(16);
+
                     transition:
                         background-color 0.2s ease,
                         transform 0.1s ease;
@@ -693,6 +738,23 @@ body {
                         box-shadow: 0 0 0 3px rgba(29, 155, 209, 0.2);
                     }
                 }
+            }
+
+            @include breakpoint(tablet) {
+                gap: f.rem(40);
+
+                .search-bar {
+                    flex-direction: row;
+                    align-items: center;
+                    width: 50vw;
+                    button {
+                        width: auto;
+                    }
+                }
+            }
+
+            @include breakpoint(desktop) {
+                gap: f.rem(48);
             }
         }
 
@@ -710,7 +772,6 @@ body {
                 max-width: 100%;
                 display: grid;
                 grid-template-columns: 1fr;
-                //    grid-auto-rows: min-content;
                 gap: f.rem(32);
                 grid-template-areas:
                     "current"
@@ -718,7 +779,7 @@ body {
                     "daily"
                     "hourly";
 
-                @include breakpoint(medium) {
+                @include breakpoint(desktop) {
                     grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
 
                     grid-template-areas:
@@ -746,12 +807,14 @@ body {
                         align-items: center;
                         justify-content: center;
                         color: var(--color-text);
-                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-                        @include breakpoint(medium) {
+                        box-shadow: var(--shadow);
+
+                        @include breakpoint(desktop) {
                             background: url("../assets/bg-today-large.svg");
                             background-repeat: no-repeat;
                             background-size: cover;
                         }
+
                         .weather-effects {
                             position: absolute;
                             inset: 0;
@@ -769,10 +832,9 @@ body {
 
                             .favorite-btn,
                             .compare-btn {
-                                backdrop-filter: blur(10px) saturate(180%);
-                                -webkit-backdrop-filter: blur(10px) saturate(180%);
-                                background: rgba(255, 255, 255, 0.15); // glass effect
-                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                backdrop-filter: blur(10px);
+                                -webkit-backdrop-filter: blur(10px);
+                                background: rgba(255, 255, 255, 0.15);
                                 padding: f.rem(12);
                                 border-radius: 50%;
                                 display: grid;
@@ -815,7 +877,6 @@ body {
                                 &.disabled {
                                     cursor: not-allowed;
                                     opacity: 0.5;
-                                    pointer-events: none;
 
                                     .icon {
                                         color: lightgray;
@@ -833,27 +894,18 @@ body {
                             gap: f.rem(12);
                             padding-block: f.rem(32);
                             z-index: 3;
+
                             .location__date {
                                 grid-column: 1;
                                 grid-row: 1;
                                 .place {
-                                    font-size: f.rem(28);
+                                    font-size: clamp(f.rem(18), 2vw, f.rem(20));
                                     font-weight: v.$font-bolder;
                                 }
                                 .date,
                                 .time {
-                                    font-size: f.rem(14);
+                                    font-size: f.rem(12);
                                     opacity: 0.8;
-                                }
-                                @include breakpoint(small) {
-                                    grid-column: 1;
-                                    grid-row: 1;
-                                }
-
-                                @include breakpoint(medium) {
-                                    grid-column: 1;
-                                    grid-row: 1;
-                                    justify-self: start;
                                 }
                             }
                             .sunpath {
@@ -865,7 +917,11 @@ body {
                                 display: flex;
                                 flex-direction: column;
                                 gap: f.rem(16);
+                                width: 100%;
+                                max-width: f.rem(300);
                                 svg {
+                                    width: 100%;
+                                    height: auto;
                                     overflow: visible;
                                     .progress-arc {
                                         transition: stroke-dashoffset 1s linear;
@@ -899,36 +955,37 @@ body {
                                 .tooltip {
                                     position: absolute;
                                     background: rgba(0, 0, 0, 0.2);
-                                    color: #fff;
-                                    padding: 4px 8px;
-                                    font-size: 0.7rem;
-                                    font-weight: 500;
-                                    border-radius: 4px;
+                                    color: v.$neutral-0;
+                                    padding: f.rem(4) f.rem(8);
+                                    font-size: f.rem(12);
+                                    font-weight: v.$font-normal;
+                                    border-radius: f.rem(4);
                                     white-space: nowrap;
                                     pointer-events: none;
                                     transition:
                                         opacity 0.3s ease,
                                         transform 0.3s ease;
                                     z-index: 10;
+                                    transform: translate(-50%, -100%);
                                 }
                                 .labels {
                                     width: 100%;
                                     display: flex;
                                     justify-content: space-between;
-                                    font-weight: 600;
-                                    font-size: 0.9rem;
-                                    padding: 0 8px;
-                                }
+                                    font-weight: v.$font-bold;
+                                    font-size: f.rem(14);
+                                    padding: 0 f.rem(8);
 
-                                @include breakpoint(small) {
-                                    grid-column: 1 / -1; // full width
-                                    grid-row: 2;
-                                    justify-self: center;
-                                }
-                                @include breakpoint(medium) {
-                                    grid-column: 2;
-                                    grid-row: 1;
-                                    justify-self: center;
+                                    .left-label {
+                                        left: 0;
+                                        bottom: 0;
+                                        transform: translate(-50%, 0);
+                                    }
+
+                                    .right-label {
+                                        bottom: 0;
+                                        transform: translate(50%, 0);
+                                    }
                                 }
                             }
                             .temp {
@@ -936,38 +993,70 @@ body {
                                 grid-row: 2;
                                 display: flex;
                                 align-items: center;
-                                justify-content: center; // stack nicely below location
+                                justify-content: center;
 
                                 .value {
                                     font-weight: v.$font-bold;
                                     font-family: v.$dm-font;
                                     font-style: italic;
-                                    font-size: f.rem(64);
+                                    font-size: clamp(f.rem(28), 3vw, f.rem(52));
                                 }
-                                @include breakpoint(small) {
+
+                                .weather-icon {
+                                    width: clamp(f.rem(80), 15vw, f.rem(120));
+                                    height: auto;
+                                    max-width: 100%;
+                                }
+                            }
+
+                            @include breakpoint(tablet) {
+                                grid-template-columns: 1fr 1fr;
+                                grid-template-rows: auto auto;
+                                align-items: center;
+
+                                .location__date {
+                                    grid-column: 1;
+                                    grid-row: 1;
+                                }
+
+                                .sunpath {
+                                    grid-column: 1 / -1;
+                                    grid-row: 2;
+                                    justify-self: center;
+                                }
+                                .temp {
                                     grid-column: 2;
                                     grid-row: 1;
                                     justify-self: end;
                                 }
-                                @include breakpoint(medium) {
+                            }
+
+                            @include breakpoint(desktop) {
+                                grid-template-columns: 1fr auto 1fr;
+                                grid-template-rows: auto;
+                                align-items: center;
+                                justify-items: center;
+
+                                .location__date {
+                                    grid-column: 1;
+                                    grid-row: 1;
+                                    justify-self: start;
+                                    text-align: left;
+                                }
+
+                                .sunpath {
+                                    grid-column: 2;
+                                    grid-row: 1 / span 2;
+                                    justify-self: center;
+                                    align-self: center;
+                                    margin: 0;
+                                }
+
+                                .temp {
                                     grid-column: 3;
                                     grid-row: 1;
                                     justify-self: end;
                                 }
-                            }
-
-                            // tablet
-                            @include breakpoint(small) {
-                                grid-template-columns: 1fr 1fr; // 2 columns
-                                grid-template-rows: auto auto;
-                                align-items: center;
-                            }
-
-                            // Desktop
-                            @include breakpoint(medium) {
-                                grid-template-columns: 1fr auto 1fr; // 3 columns
-                                grid-template-rows: auto;
-                                align-items: center;
                             }
                         }
                     }
@@ -1033,13 +1122,12 @@ body {
                                         padding: f.rem(2) f.rem(8);
                                         font-weight: v.$font-bold;
                                         font-size: f.rem(10);
-                                        color:v.$neutral-0;
+                                        color: v.$neutral-0;
                                     }
                                 }
                             }
 
-                            // Desktop styles (768px and up)
-                            @include breakpoint(medium) {
+                            @include breakpoint(desktop) {
                                 perspective: 1000px;
                                 min-height: f.rem(100);
 
@@ -1063,20 +1151,22 @@ body {
                                         justify-content: center;
                                         align-items: center;
                                     }
-                                    &-back {
+                                    &-back,
+                                    &.flipped {
                                         transform: rotateY(180deg);
                                     }
-                                } // Hover effect only on desktop
+                                }
+
                                 @media (hover: hover) and (pointer: fine) {
-                                    &:hover .stat-card__content,
-                                    &:active .stat-card__content {
+                                    &:not(.flipped):hover .stat-card__content,
+                                    &:not(.flipped):active .stat-card__content {
                                         transform: rotateY(180deg);
                                     }
                                 }
                             }
                         }
 
-                        @include breakpoint(medium) {
+                        @include breakpoint(desktop) {
                             gap: f.rem(0);
                         }
                     }
@@ -1097,7 +1187,7 @@ body {
                             gap: f.rem(16);
 
                             .day__card {
-                                // cursor: pointer;
+                                cursor: pointer;
                                 -webkit-tap-highlight-color: transparent;
                                 background: var(--card-bg);
                                 border-radius: f.rem(12);
@@ -1113,7 +1203,7 @@ body {
                                     top: 0;
                                     left: 0;
                                     right: 0;
-                                    height: 3px;
+                                    height: f.rem(3);
                                     background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
                                     transition: height 0.3s ease;
                                 }
@@ -1127,7 +1217,6 @@ body {
                                     .day-header {
                                         display: flex;
                                         justify-content: space-between;
-
                                         gap: f.rem(16);
                                         align-items: center;
                                         transition: opacity 0.3s ease;
@@ -1135,7 +1224,7 @@ body {
                                         .day-name {
                                             font-weight: v.$font-bold;
                                             font-size: f.rem(18);
-                                            color: #e2e8f0;
+                                            color: v.$neutral-0;
                                             margin: 0;
                                         }
                                     }
@@ -1153,7 +1242,7 @@ body {
 
                                         .temp-min {
                                             font-weight: v.$font-normal;
-                                            font-size: f.rem(16);
+                                            font-size: f.rem(14);
                                             color: v.$neutral-300;
                                         }
                                     }
@@ -1164,7 +1253,7 @@ body {
                                     bottom: 0;
                                     left: 0;
                                     right: 0;
-                                    background: rgba(0, 0, 0, 0.9);
+                                    background: rgba(0, 0, 0, 0.4);
                                     backdrop-filter: blur(2px);
                                     padding: f.rem(16);
                                     transform: translateY(100%);
@@ -1183,14 +1272,14 @@ body {
                                             gap: f.rem(8);
 
                                             .stat-icon {
-                                                font-size: 1.1rem;
-                                                color: #63b3ed;
+                                                font-size: f.rem(18);
+                                                color: skyblue;
                                             }
 
                                             .stat-value {
-                                                font-size: 0.8rem;
-                                                font-weight: 600;
-                                                color: #e2e8f0;
+                                                font-size: f.rem(12);
+                                                font-weight: v.$font-bold;
+                                                color: v.$neutral-0;
                                             }
                                         }
                                     }
@@ -1198,10 +1287,9 @@ body {
 
                                 &:hover,
                                 &:active {
-                                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-
+                                    box-shadow: var(--shadow);
                                     .card-gradient {
-                                        height: 6px;
+                                        height: f.em(6);
                                     }
 
                                     .weather-stats-overlay {
@@ -1226,7 +1314,7 @@ body {
                         border-radius: f.rem(12);
                         display: flex;
                         flex-direction: column;
-                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                        box-shadow: var(--shadow);
                         height: 100%;
                         max-height: 690px;
 
@@ -1239,7 +1327,7 @@ body {
                             .day-dropdown {
                                 position: relative;
                                 display: inline-block;
-
+                                box-shadow: var(--shadow);
                                 .select__day {
                                     background: v.$neutral-700;
                                     color: v.$neutral-0;
@@ -1268,7 +1356,7 @@ body {
                                     background: v.$neutral-800;
                                     border-radius: f.rem(8);
                                     padding: f.rem(8);
-                                    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+                                    box-shadow: var(--shadow);
                                     margin-top: f.rem(10);
                                     border: v.$neutral-700 0.2px solid;
                                     z-index: 10;
@@ -1284,6 +1372,7 @@ body {
                                         &.highlighted,
                                         &:focus-visible {
                                             background: v.$neutral-600;
+                                            box-shadow: var(--shadow);
                                         }
                                     }
                                 }
@@ -1312,10 +1401,10 @@ body {
                                 transition:
                                     transform 0.2s,
                                     background 0.2s;
-
+                                box-shadow: var(--shadow);
                                 &.current-hour {
                                     background: var(--color-accent);
-                                    color: #fff;
+                                    color: v.$neutral-0;
                                     transform: scale(1.02);
                                 }
 
@@ -1323,6 +1412,7 @@ body {
                                     display: flex;
                                     align-items: center;
                                     gap: f.rem(8);
+                                    font-weight: v.$font-bolder;
                                 }
 
                                 .end {
@@ -1349,16 +1439,17 @@ body {
                             }
                             &::-webkit-scrollbar-thumb {
                                 background: v.$neutral-600;
-                                border-radius: f.rem(3);
+                                border-radius: f.rem(8);
                             }
                             &::-webkit-scrollbar-track {
                                 background: transparent;
                             }
                         }
 
-                        @include breakpoint(medium) {
+                        @include breakpoint(desktop) {
                             width: 100%;
-                            max-width: 100%;
+                            min-width: f.rem(280);
+                            max-width: f.rem(400);
                         }
                     }
                 }
@@ -1377,7 +1468,7 @@ body {
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                color: v.$neutral-0; //color: var(--color-text);
+                color: v.$neutral-0;
 
                 &.error-page {
                     .icon {
@@ -1474,6 +1565,7 @@ body {
                 display: flex;
                 gap: f.rem(16);
                 flex-wrap: wrap;
+
                 .stat-card {
                     flex: 1;
                     background: v.$neutral-800;
@@ -1514,7 +1606,7 @@ body {
 
                     .day-card-skeleton {
                         flex: 1;
-                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                        box-shadow: var(--shadow);
                     }
                 }
             }
@@ -1526,7 +1618,7 @@ body {
                 flex-direction: column;
                 background: v.$neutral-800;
                 border-radius: f.rem(12);
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                box-shadow: var(--shadow);
                 .forecast-header {
                     display: flex;
                     padding: f.rem(16);
@@ -1534,8 +1626,8 @@ body {
                     align-items: center;
                     flex-shrink: 0;
                     select {
-                        padding: 0.4rem;
-                        border-radius: 0.5rem;
+                        padding: f.rem(6);
+                        border-radius: f.rem(8);
                         background-color: v.$neutral-600;
                         color: v.$neutral-0;
                     }
@@ -1547,19 +1639,17 @@ body {
                     gap: f.rem(12);
                     .hour-card-skeleton {
                         border-radius: f.rem(8);
+                        box-shadow: var(--shadow);
                     }
                 }
             }
 
-            // 🔹 Responsive
-            @include breakpoint(medium) {
+            @include breakpoint(desktop) {
                 grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
-
                 grid-template-areas:
                     "current hourly"
                     "stats hourly"
                     "daily hourly";
-
                 padding-block: f.rem(32);
             }
         }
@@ -1610,7 +1700,7 @@ body {
                     border-radius: f.rem(12);
                     padding: f.rem(16);
                     border: 1px solid rgba(255, 255, 255, 0.08);
-                    min-height: 80px;
+                    min-height: f.em(80);
                     display: flex;
                     flex-direction: column;
                     align-items: center;
@@ -1625,17 +1715,17 @@ body {
 
                         .skeleton-stat-label,
                         .skeleton-stat-value {
-                            border-radius: 0.25rem;
+                            border-radius: f.rem(4);
                             background-color: rgba(255, 255, 255, 0.1);
                         }
 
                         .skeleton-stat-label {
-                            width: f.rem(72);
-                            height: f.rem(24);
+                            width: f.em(72);
+                            height: f.em(24);
                         }
                         .skeleton-stat-value {
-                            width: f.rem(40);
-                            height: f.rem(16);
+                            width: f.em(40);
+                            height: f.em(16);
                         }
                     }
                 }
@@ -1648,7 +1738,8 @@ body {
         .footer {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            flex-direction: column-reverse;
+            gap: f.rem(32);
             width: 100%;
             font-size: f.rem(11);
             padding-block: f.rem(32);
@@ -1656,30 +1747,33 @@ body {
                 display: flex;
                 justify-content: center;
                 gap: f.rem(24);
+                font-size: f.rem(14);
                 .social__icon {
-                    color: lightskyblue;
+                    color: var(--color-accent);
                     &:hover,
                     &:focus,
                     &:focus-visible {
-                        color: v.$orange-500;
+                        color: color-mix(in srgb, v.$neutral-0 15%, var(--color-accent) 85%);
                     }
                 }
             }
 
             .attribution {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: f.rem(2);
+                text-align: center;
                 a {
                     font-weight: v.$font-bolder;
-                    color: v.$neutral-200;
+                    color: var(--color-accent);
                     &:hover,
                     &:focus,
                     &:focus-visible {
                         text-decoration: underline;
                     }
                 }
+            }
+
+            @include breakpoint(desktop) {
+                flex-direction: row;
+                justify-content: space-between;
             }
         }
     }

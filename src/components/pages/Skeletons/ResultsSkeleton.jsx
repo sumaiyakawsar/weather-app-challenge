@@ -29,9 +29,11 @@ export default function ResultsSkeleton() {
             {/* CurrentWeather Skeleton */}
             <div className="current-weather-skeleton">
                 <div className="loading-box">
-                    <div className="spinner">  <span>•</span>
+                    <div className="spinner">
                         <span>•</span>
-                        <span>•</span></div>
+                        <span>•</span>
+                        <span>•</span>
+                    </div>
                     <p>Loading...</p>
                 </div>
             </div>
@@ -48,8 +50,6 @@ export default function ResultsSkeleton() {
                             <div className="card-back">
                                 <Skeleton
                                     className="stat-value"
-                                    // baseColor="var(--card-bg, #1a1a2e)"
-                                    // highlightColor="var(--neutral-700, #2a2a3e)"
                                     baseColor="var(--neutral-700, #1a1a2e)"
                                     highlightColor="var(--neutral-600, #2a2a3e)"
                                 />
@@ -68,11 +68,9 @@ export default function ResultsSkeleton() {
                             <Skeleton
                                 height={160}
                                 borderRadius="1rem"
-                                // baseColor="var(--card-bg, #1a1a2e)"
-                                // highlightColor="var(--neutral-700, #2a2a3e)" 
                                 baseColor="var(--neutral-700, #1a1a2e)"
                                 highlightColor="var(--neutral-600, #2a2a3e)"
-                                />
+                            />
                         </div>
                     ))}
                 </div>

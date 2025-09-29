@@ -8,12 +8,14 @@ export function useVoiceSearch(onAutoSearch) {
         browserSupportsSpeechRecognition,
         listening
     } = useSpeechRecognition();
-    
+
+    if (!SpeechRecognition) console.error("SpeechRecognition API not available!");
+
     // Auto-search when voice recognition stops
     useEffect(() => {
         if (!listening && transcript.trim().length > 1) {
             onAutoSearch();
-        } 
+        }
     }, [listening]);
 
     const toggleVoiceSearch = () => {
@@ -26,7 +28,12 @@ export function useVoiceSearch(onAutoSearch) {
             SpeechRecognition.stopListening();
         } else {
             resetTranscript();
-            SpeechRecognition.startListening({ continuous: false, language: "en-US" });
+            SpeechRecognition.startListening({
+                continuous: false,
+                language: "en-US",
+            }).catch(err => {
+                console.error("Speech recognition failed:", err);
+            });
         }
     };
 

@@ -6,8 +6,6 @@ import Dropdown from "../Subcomponents/Dropdown";
 export default function FavoritesMenu({ onSelect, favoritesUpdated }) {
     const [favorites, setFavorites] = useState([]);
 
-
-    // if (favorites.length === 0) return null;
     useEffect(() => {
         const loadFavorites = () => {
             setFavorites(dedupeFavorites(getFavorites()));

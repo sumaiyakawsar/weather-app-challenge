@@ -12,7 +12,6 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
   const current = data?.current_weather;
   const daily = data?.daily || {};
 
-
   const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
@@ -52,11 +51,6 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
     onFavoriteChange?.();
   };
 
-
-
-
-
-
   // Live UTC timestamp
   const [now, setNow] = useState(new Date());
 
@@ -79,8 +73,6 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
 
   const formattedDate = formatLocalDate(now, timezone);
   const formattedTime = formatLocalTime(now, timezone);
-
-
 
   //  For Testing Purposes
   // console.log(current?.is_day);
@@ -118,12 +110,9 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
           <MdCompareArrows
             size={24}
             className="icon"
-            color={compareList?.length >= 3 ? "lightgray" : "skyblue"}
             style={{ cursor: compareList?.length >= 3 ? "not-allowed" : "pointer" }}
           />
-
         </div>
-
 
         {/* Favorite button */}
         <div className="favorite-btn"
@@ -136,15 +125,13 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
             className="icon"
           />
         </div>
-
-
-
       </div>
+
       <div className="content">
         <div className="location__date">
           <div className="place">{place}</div>
           <p className="date">{formattedDate}</p>
-          <p className="time">{formattedTime}</p>
+          {/* <p className="time">{formattedTime}</p> */}
 
         </div>
         <PhaseProgress
@@ -153,8 +140,8 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
           now={now}
           timezone={timezone}
           isDay={current?.is_day === 1}
-
         />
+
         <div className="temp">
           <WeatherIcon code={current?.weathercode} size={120} />
           <h2 className="value">{Math.round(current?.temperature)}{units.temperature}</h2>

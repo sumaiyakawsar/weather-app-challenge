@@ -46,10 +46,8 @@ export default function SearchBar({ onLocationSelected, onClearSearch }) {
     // Update query whenever transcript changes
     useEffect(() => {
         if (transcript) setQuery(transcript);
-    }, [transcript]);
-
-
-
+    }, [transcript]); 
+    
     // Clear previous errors or no-results when user types
     useEffect(() => {
         if (query.trim() && query !== lastSearch) {
@@ -73,7 +71,7 @@ export default function SearchBar({ onLocationSelected, onClearSearch }) {
     const handleSuggestionClick = (s) => {
         setQuery(`${s.name}, ${s.country}`);
         setSuggestions([]);
-        handleSearch(s); // ✅ goes through the same flow as manual search
+        handleSearch(s);  
     };
     // Clear search input
     const handleClearSearch = () => {

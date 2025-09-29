@@ -12,11 +12,11 @@ export default defineConfig({
       includeAssets: ['favicon.svg', "icons/*.svg"],
       manifestFilename: 'manifest.webmanifest',
       manifest: {
-        name: "Weather App Challenge",
+        name: "Weather App",
         short_name: "WeatherApp",
         description: "Weather App Challenge Solution by Sumaiya Kawsar",
         theme_color: "#1e1e1e",
-        background_color: "#ffffff",
+        background_color: "#03012d",
         display: 'standalone',
         start_url: '/weather-app-challenge/',
         icons: [
@@ -29,10 +29,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-      },
-      devOptions: {
-        enabled: true,
-      },
+      }
     }),
   ],
 })

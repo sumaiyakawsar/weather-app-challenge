@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatLocalTime, fmtTime } from "../../../../utils/dateUtils"; 
+import { formatLocalTime, fmtTime } from "../../../../utils/dateUtils";
 
 export default function PhaseProgress({ sunrise, sunset, now, timezone, isDay }) {
     if (!sunrise || !sunset) return null;
@@ -52,19 +52,20 @@ export default function PhaseProgress({ sunrise, sunset, now, timezone, isDay })
     const y = cy - radius * Math.sin((Math.PI * angle) / 180);
 
     // Labels based on current phase
-    const leftLabel = isDay
-        ? `🌅 ${fmtTime(sunrise, timezone)}`
-        : (nowMs < sunriseMs
-            ? `🌇 ${fmtTime(new Date(sunsetMs - 24 * 60 * 60 * 1000), timezone)}`
-            : `🌇 ${fmtTime(sunset, timezone)}`);
+    const leftLabelData = isDay
+        ? { text: `🌅 ${fmtTime(sunrise, timezone)}`, type: "sunrise" }
+        : nowMs < sunriseMs
+            ? { text: `🌇 ${fmtTime(new Date(sunsetMs - 24 * 60 * 60 * 1000), timezone)}`, type: "sunset" }
+            : { text: `🌇 ${fmtTime(sunset, timezone)}`, type: "sunset" };
 
-    const rightLabel = isDay
-        ? `🌇 ${fmtTime(sunset, timezone)}`
-        : `🌅 ${fmtTime(sunrise, timezone)}`;
+    const rightLabelData = isDay
+        ? { text: `🌇 ${fmtTime(sunset, timezone)}`, type: "sunset" }
+        : { text: `🌅 ${fmtTime(sunrise, timezone)}`, type: "sunrise" };
+
     // Tooltip state
     const [showTooltip, setShowTooltip] = useState(false);
 
-    // // Debug info (remove in production)
+    // Testing Purposes
     // console.log({
     //     isDay,
     //     sunrise: fmtTime(sunrise, timezone),
@@ -113,7 +114,7 @@ export default function PhaseProgress({ sunrise, sunset, now, timezone, isDay })
                 </defs>
 
                 {/* Sun or Moon marker */}
-                <circle 
+                <circle
                     className={`sunmoon ${isDay ? "day" : "night"}`}
                     cx={x}
                     cy={y}
@@ -137,31 +138,27 @@ export default function PhaseProgress({ sunrise, sunset, now, timezone, isDay })
                     className="tooltip"
                     style={{
                         left: x,
-                        top: y - (isDay ? 30 : 20),
-                        transform: "translate(-50%, -100%)",
+                        top: y - (isDay ? 30 : 20)
                     }}
                 >
                     {formatLocalTime(now, timezone)}
                 </div>
             )}
 
-
-
             {/* Labels */}
             <div className="labels">
-                <span
-                    className="left-label"
-                    style={{ left: 0, bottom: 0, transform: "translate(-50%, 0)" }}
-                >
-                    {leftLabel}
+                <span className="left-label" title={leftLabelData.type === "sunrise" ? "Sunrise" : "Sunset"}>
+                    {leftLabelData.text}
                 </span>
                 <span
                     className="right-label"
-                    style={{ left: radius * 2, bottom: 0, transform: "translate(50%, 0)" }}
+                    style={{ left: radius * 2 }}
+                    title={rightLabelData.type === "sunrise" ? "Sunrise" : "Sunset"}
                 >
-                    {rightLabel}
+                    {rightLabelData.text}
                 </span>
             </div>
+
 
         </div>
     );

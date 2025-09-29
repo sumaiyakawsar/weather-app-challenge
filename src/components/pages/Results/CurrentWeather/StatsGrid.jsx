@@ -4,12 +4,13 @@ import {
   WiStrongWind,
   WiBarometer,
   WiDirectionUp,
-  WiRaindrops,
   WiThermometer,
   WiDayFog,
 } from "react-icons/wi";
+import { MdWaterDrop } from "react-icons/md";
 
 import { findClosestHourIndex } from "../../../../utils/dateUtils";
+import { useState } from "react";
 
 function StatsGrid({ data, units }) {
   const current = data?.current_weather;
@@ -58,9 +59,15 @@ function StatsGrid({ data, units }) {
         style={{ transform: `rotate(${current?.winddirection ?? 0}deg)` }}
       />
     },
-    { label: "Precipitation", value: `${hourly?.precipitation?.[idx] ?? "—"} ${units.precipitation}`, icon: <WiRaindrops size={28} /> },
+    { label: "Precipitation", value: `${hourly?.precipitation?.[idx] ?? "—"} ${units.precipitation}`, icon: <MdWaterDrop size={28} /> },
   ];
 
+  // Track which cards are flipped
+  const [flippedCards, setFlippedCards] = useState({});
+
+  const toggleFlip = (i) => {
+    setFlippedCards(prev => ({ ...prev, [i]: !prev[i] }));
+  };
   // Add debug logging to verify data
   // console.log("StatsGrid data check:", {
   //     currentTime: current?.time,
@@ -73,8 +80,10 @@ function StatsGrid({ data, units }) {
   return (
     <div className='weather__stats'>
       {stats.map((s, i) => (
-        <div className="stat-card" key={i}>
-          <div className="stat-card__content">
+        <div className="stat-card" key={i} onClick={() => toggleFlip(i)}>
+          <div className={`stat-card__content ${flippedCards[i] ? "flipped" : ""}`}
+
+          >
             {/* Front */}
             <div className="stat-card__content-front">
               <span className="icon">{s.icon}</span>

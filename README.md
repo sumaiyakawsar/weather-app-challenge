@@ -3,11 +3,11 @@
  
 <div align="center">
   <h3>
-    <a href="https://sumaiyakawsar.github.io/">
+    <a href="https://sumaiyakawsar.github.io/weather-app-challenge/">
       Demo
     </a>
     <span> | </span>
-    <a href="https://github.com/sumaiyakawsar/">
+    <a href="https://github.com/sumaiyakawsar/weather-app-challenge/">
       Solution
     </a>
     <span> | </span>
@@ -24,101 +24,116 @@
 - [Frontend Mentor - Weather app solution](#frontend-mentor---weather-app-solution)
   - [Table of contents](#table-of-contents)
   - [Overview](#overview)
-    - [The challenge](#the-challenge)
-    - [Screenshot](#screenshot)
+    - [✅ Features](#-features)
+    - [📔Screenshot](#screenshot)
   - [My process](#my-process)
-    - [Built with](#built-with)
-    - [What I learned](#what-i-learned)
-    - [Continued development](#continued-development)
+    - [⚙️ Built with](#️-built-with)
+    - [👩🏻‍🎓 What I learned](#-what-i-learned)
+    - [⚡ Challenges I faced \& Solutions](#-challenges-i-faced--solutions)
+    - [🧩 My Process](#-my-process)
     - [Useful resources](#useful-resources)
   - [Author](#author)
 
  
 ## Overview
+This project is my submission for the FM30 Hackathon hosted by Frontend Mentor. The challenge was to build a Weather App using the Open-Meteo API. 
+
+I focused on:
+- I tried my best to build a clean, responsive UI with React and SCSS
+- Going beyond the requirements with advanced features like voice search, PWA, compare locations, and more
+- Writing meaningful commits and documenting my journey through this README
+
 ![wakatime](https://wakatime.com/badge/github/sumaiyakawsar/weather-app-challenge.svg)
-
-### The challenge
-
-Users should be able to:
-- [x] Search for weather information by entering a location in the search bar
-- [x] View current weather conditions including temperature, weather icon, and location details
-- [x] See additional weather metrics like "feels like" temperature, humidity percentage, wind speed, and precipitation amounts
-- [x] Browse a 7-day weather forecast with daily high/low temperatures and weather icons
-- [x] View an hourly forecast showing temperature changes throughout the day
-- [x] Switch between different days of the week using the day selector in the hourly forecast section
-- [x] Toggle between Imperial and Metric measurement units via the units dropdown 
-- [x] Switch between specific temperature units (Celsius and Fahrenheit) and measurement units for wind speed (km/h and mph) and precipitation (millimeters) via the units dropdown
-- [x] View the optimal layout for the interface depending on their device's screen size
-- [x] See hover and focus states for all interactive elements on the page
  
-- [x] Add geolocation detection to automatically show weather for the user's current location on first visit
-- [x] Include UV index, visibility, and air pressure data (available via Open-Meteo)
-- [x] Implement voice search functionality 
-- [x] Add sunrise/sunset times with visual indicators
-- [x] Add animated weather backgrounds that change based on current conditions
-- [x] Create dark/light mode themes that adapt to the time of day 
-- [x] Implement a favorites/saved locations system where users can bookmark frequently checked locations
-- [x] Implement a "Compare Locations" feature to view weather side-by-side for multiple locations
-- [x] Add progressive web app (PWA) capabilities for mobile installation
+### ✅ Features
+
+Core Requirements:
+🔍 Search weather by location
+🌡️ View current weather: temperature, conditions, location, and extra metrics (feels like, humidity, wind, precipitation)
+📅 Browse 7-day forecast with daily high/low temperatures and weather icons and hourly forecast with day selector
+⚖️ Toggle between Imperial & Metric units (Celsius/Fahrenheit, km/h/mph, mm/inches)
+📱 Responsive layout for all devices
+🖱️ Hover & focus states for interactive elements
+
+Extra features implemented:
+📍 Geolocation detection (auto weather on first visit)
+☀️ Sunrise/sunset times with visual indicators
+🌈 Animated backgrounds based on weather conditions
+🌗 Dark/Light themes that adapt to time of day
+💾 Favorites/Saved locations system (localStorage)
+🆚 Compare multiple locations side-by-side (localStorage)
+🗣️ Voice search support
+⏳ Skeleton loading states for better UX
+🛰️ Additional metrics: UV index, visibility, air pressure
+📲 PWA support for mobile installation
 
 
-
-### Screenshot
+### 📔Screenshot
 
 ![](./Screenshot.png)
 
- 
- 
+
 ## My process
 
-### Built with
- - [React](https://reactjs.org/)
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-
-- [react-loading-skeleton](https://github.com/dvtng/react-loading-skeleton#readme) - Used to display skeleton placeholders while content is loading, improving the user experience.
-- [react-speech-recognition](https://github.com/JamesBrill/react-speech-recognition) - Provides voice input support, allowing users to search for locations or interact with the app using speech.
-- gh-pages - Enables quick and easy deployment of the React app to GitHub Pages.
-- [knip](https://knip.dev/) - Helps keep the codebase clean by detecting unused files, exports, and dependencies.
-
+### ⚙️ Built with
+- ⚛️ [React](https://reactjs.org/)
+- 🎨 SCSS (mobile-first, responsive design)
+- 📦 Flexbox & CSS Grid 
+- ⏳ [react-loading-skeleton](https://github.com/dvtng/react-loading-skeleton#readme) - Used to display skeleton placeholders while content is loading, improving the user experience.
+- 🎙️ [react-speech-recognition](https://github.com/JamesBrill/react-speech-recognition) - Provides voice input support, allowing users to search for locations or interact with the app using speech.
+- 🚀 gh-pages - Enables quick and easy deployment of the React app to GitHub Pages.
+- 🧹 [knip](https://knip.dev/) - Helps keep the codebase clean by detecting unused files, exports, and dependencies.
+- 📦 Progressive Web App (PWA) setup with Vite
 
 
- ### What I learned
+### 👩🏻‍🎓 What I learned
+- Integrating multiple API data streams into React hooks
+- Building scalable state management with custom hooks and context (compare, favorites, units, theming).
+- Leveraging voice recognition and geolocation APIs.
+- Adding keyboard support to improve accessibility.
+- Improving UX with skeleton loading, subtle animations, and background changes tied to live data.
+- How PWA integration with Vite works — and how small steps make a web app feel installable and native.
+- The importance of a meaningful commit history to track progress (Maybe It wasnt perfect but I tried).
+  
+### ⚡ Challenges I faced & Solutions
+- **Handling API responses**: I modularized API calls and used custom hooks for clean data fetching.
+- **Compare Feature**: Synchronizing multiple locations side-by-side was tricky; I solved it with a useCompareList hook and context state management.(This feature was the most rewarding because it brought the app closer to how people actually compare weather.)
+- **Voice Search**: Integrated speech recognition with natural UX, handling permissions, errors, and fallbacks for unsupported devices.  
+- **Theming**: Previously I had only built light/dark themes, but this project required the theme to auto-adapt to time of day while still allowing manual switching — balancing UX and state logic.
+- **Animated Backgrounds**: Iterated multiple times to make them responsive and driven by live weather data. (The thunder effect is my personal favorite.) 
+- **Sunrise/Sunset Progress Indicator**: Implementing both sunrise-to-sunset and sunset-to-sunrise progress calculations was tricky. I had to handle dynamic times per location, adjust for time zones, and ensure the visual indicators accurately reflected the day/night progress throughout the 24-hour cycle. 
+- I also relied on ChatGPT prompt iterations extensively — even after carefully crafting prompts — to solve edge cases and refine the features. (Mostly for Sunrise/Sunset Progress Indicator, Animated Backgrounds and Voice Search) 
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+### 🧩 My Process
 
-To see how you can add code snippets, see below:
+**Planning & Setup**
+- Defined the component structure (SearchBar, CurrentWeather, Forecasts, Compare, Favorites).
+- Created custom hooks for geolocation, weather API calls, theme, and compare list.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
+**Core Features First**
+- Implemented search, current weather, daily/hourly forecast.
+- Set up responsive SCSS with a mobile-first approach.
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+**Enhancements**
+- Added extra data (UV, air pressure, visibility).
+- Integrated voice search and geolocation.
+- Designed skeleton states for loading.
 
- 
+**Polish & Experience**
+- Implemented dark/light theme switching tied to time of day.
+- Added animated backgrounds for immersive UX.
+- Created favorites and compare locations views.
 
-### Continued development
+**Final Step**
+- Configured PWA so users can install it on mobile.
+- Deployed to GitHub Pages with gh-pages.
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
 
 ### Useful resources
 - [PWC resource](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf) - This is an amazing article which helped me finally understand PWC. I'd recommend it to anyone still learning this concept.
 - [Voice search resource](https://www.youtube.com/watch?v=xJ_V55awyIo)
 - [Skeleton resource](https://www.youtube.com/watch?v=g74Q0wRc6BQ&t=63s)
-
+- ChatGPT & DeepSeek for brainstorming and debugging
 
 ## Author
 

@@ -2,8 +2,8 @@
 @use "sass:map";
 
 $breakpoints-down: (
-    "medium": f.rem(992),
-    "small": f.rem(768)
+    "desktop": f.rem(1025),
+    "tablet": f.rem(768) 
 );
 
 @mixin breakpoint($size) {

@@ -11,8 +11,7 @@ function DailyForecast({ daily, units }) {
     setActiveCard(activeCard === index ? null : index);
   };
 
-  const handleTouchStart = (e, index) => {
-    // Prevent default to avoid scrolling issues
+  const handleTouchStart = (e, index) => { 
     e.preventDefault();
     handleCardPress(index);
   };

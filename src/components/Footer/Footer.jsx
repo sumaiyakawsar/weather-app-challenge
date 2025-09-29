@@ -10,10 +10,11 @@ export default function Footer() {
     ];
     return (
         <footer className="footer">
-            <div className="attribution">Challenge by
-                <a href="https://www.frontendmentor.io?ref=challenge"> Frontend Mentor</a>.
-                Coded by
-                <a href="https://github.com/sumaiyakawsar"> Sumaiya Kawsar</a>.
+            <div className="attribution">
+                <span>Challenge by </span>
+                <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+                <span> Coded by </span>
+                <a href="https://github.com/sumaiyakawsar">Sumaiya Kawsar</a>.
             </div>
             <div className="socials">
                 {socials.map(({ icon, href, label }) => (

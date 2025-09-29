@@ -67,7 +67,8 @@ export default function UnitsMenu({ onUnitsChange, onSystemChange }) {
     return (
         <div className="units-menu" ref={menuRef}>
             <button className="menu-btn" onClick={() => setOpen(!open)}>
-                <MdOutlineSettings /> Units
+                <MdOutlineSettings />
+                <span className="label-text">Units</span>
                 <span className="arrow">{open ? <FaChevronUp /> : <FaChevronDown />}</span>
             </button>
 
