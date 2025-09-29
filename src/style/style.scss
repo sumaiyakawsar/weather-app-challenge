@@ -1389,7 +1389,7 @@ body {
                             display: flex;
                             flex-direction: column;
                             gap: f.rem(12);
-
+                            scroll-behavior: smooth;
                             .hour-card {
                                 display: flex;
                                 justify-content: space-between;
@@ -1443,6 +1443,10 @@ body {
                             }
                             &::-webkit-scrollbar-track {
                                 background: transparent;
+                            }
+
+                            &:focus { 
+                                box-shadow: 0 0 0 3px rgba(29, 155, 209, 0.2);
                             }
                         }
 

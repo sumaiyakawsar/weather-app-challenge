@@ -64,7 +64,7 @@ function HourlyForecast({ hourly, units, timezone }) {
 
       </div>
 
-      <div className="forecast-list">
+      <div className="forecast-list" tabIndex={0}>
         {filteredHours.map(({ time, index }) => {
           const isCurrent =
             selectedDay === todayName && new Date(time).getHours() === currentLocalHour;

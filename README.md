@@ -31,6 +31,7 @@
     - [👩🏻‍🎓 What I learned](#-what-i-learned)
     - [⚡ Challenges I faced \& Solutions](#-challenges-i-faced--solutions)
     - [🧩 My Process](#-my-process)
+    - [Continued development](#continued-development)
     - [Useful resources](#useful-resources)
   - [Author](#author)
 
@@ -127,6 +128,8 @@ Extra features implemented:
 - Configured PWA so users can install it on mobile.
 - Deployed to GitHub Pages with gh-pages.
 
+### Continued development
+- Add Toasts Later for Adding/Removing cities from comparelist & favourites. 
 
 ### Useful resources
 - [PWC resource](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf) - This is an amazing article which helped me finally understand PWC. I'd recommend it to anyone still learning this concept.

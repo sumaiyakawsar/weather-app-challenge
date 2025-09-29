@@ -19,7 +19,8 @@ export default function CompareMenu({ compareList, onRemove, units, system }) {
         <>
             {/* Compare toggle button in navbar */}
             <button
-                className="compare-toggle"
+                className="compare-toggle" 
+                type="button"
                 onClick={() => setShowCompare(true)}
             >
                 <FaBalanceScale size={22} color="lightblue" className="icon" />

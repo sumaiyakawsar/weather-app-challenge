@@ -72,9 +72,9 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
   const sunsetDate = sunsetEpoch ? new Date(sunsetEpoch) : null;
 
   const formattedDate = formatLocalDate(now, timezone);
-  const formattedTime = formatLocalTime(now, timezone);
-
+  
   //  For Testing Purposes
+  // const formattedTime = formatLocalTime(now, timezone);
   // console.log(current?.is_day);
   // const testWeatherCode = 45; // rain
   // const testIsDay = true;

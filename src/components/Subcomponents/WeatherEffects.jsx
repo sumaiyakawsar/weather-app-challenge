@@ -314,7 +314,7 @@ export default function WeatherEffects({ condition = "clear", isDay = true, wind
                     p.baseOpacity = p.opacity;
                 });
             } else if (condition === "cloudy" || condition === "partly-cloudy" || condition === "mostly-clear") {
-                let cloudCount = condition === "partly-cloudy" ? 4 : condition === "mostly-clear" ? 2 : 8;
+                const cloudCount = condition === "partly-cloudy" ? 4 : condition === "mostly-clear" ? 2 : 8;
                 const scaleFactor = Math.min(canvas.width / 1200, 1);// scale relative to a "full-width" canvas
                 const maxCloudRadius = Math.min(canvas.width, canvas.height) / 4;// clouds take max 1/4 of container
                 const minCloudRadius = maxCloudRadius / 2;
