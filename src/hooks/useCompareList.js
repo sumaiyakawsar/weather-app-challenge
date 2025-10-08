@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export function useCompareList() {
     const [compareList, setCompareList] = useState(() => {
@@ -22,17 +23,36 @@ export function useCompareList() {
         }
     }, [compareList]);
 
-    const addToCompare = ({ place, lat, lon }) =>
+
+    const addToCompare = ({ place, lat, lon }) => {
         setCompareList((prev) => {
             const list = Array.isArray(prev) ? prev : [];
-            if (list.some((loc) => loc.place === place)) return list;// prevent duplicates
-            if (list.length >= 3) return list;// limit to 3
+
+            // Already in list
+            if (list.some((loc) => loc.place === place)) return list;
+
+            // List full
+            if (list.length >= 3) return list;
+
             return [...list, { place, lat, lon }];
         });
 
+        // Decide which toast to show AFTER setState
+        const currentList = compareList || [];
+        if (currentList.some((loc) => loc.place === place)) {
+            toast.info(`${place} is already in the compare list!`);
+        } else if (currentList.length >= 3) {
+            toast.warning("You can compare a maximum of 3 locations.");
+        } else {
+            toast.success(`${place} added to compare list!`);
+        }
+    };
 
-    const removeFromCompare = (place) =>
+
+    const removeFromCompare = (place) => {
         setCompareList((prev) => prev.filter((loc) => loc.place !== place));
+        toast.info(`${place} removed from compare list.`);
+    };
 
     return { compareList, addToCompare, removeFromCompare };
 }
