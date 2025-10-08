@@ -8,7 +8,7 @@ import UnitsMenu from "./UnitsMenu"
 import { FiSun, FiMoon } from 'react-icons/fi';
 
 export default function Navbar({
-    onFavoriteSelect, favoritesUpdated,
+    onFavoriteSelect, favoritesUpdated, onFavoriteChange,
     onUnitsChange, onSystemChange,
     theme, onThemeToggle,
     units, system,
@@ -44,7 +44,9 @@ export default function Navbar({
                 {/* Favourites Menu */}
                 <FavoritesMenu
                     onSelect={onFavoriteSelect}
-                    favoritesUpdated={favoritesUpdated} />
+                    favoritesUpdated={favoritesUpdated} 
+                    onFavoritesChange={onFavoriteChange}
+                    />
 
                 {/* Theme indicator & toggle */}
                 <button className="theme-toggle"

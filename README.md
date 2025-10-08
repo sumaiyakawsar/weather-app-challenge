@@ -130,7 +130,7 @@ Extra features implemented:
 
 ### Continued development
 - AI powered insights
-- Delete from favourites
+-
 - Glassmorphism menus
 - Flags
 - Animation

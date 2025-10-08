@@ -9,7 +9,8 @@ export default function Dropdown({
     labelRenderer,
     buttonClass,
     listClass,
-    renderItem,
+    renderItem, renderExtra,
+
     emptyMessage = null
 }) {
     const [open, setOpen] = useState(false);
@@ -75,6 +76,7 @@ export default function Dropdown({
                                 onMouseEnter={() => setHighlightedIndex(idx)}
                             >
                                 {renderItem ? renderItem(option) : option.name || option}
+                                {renderExtra && renderExtra(option)}
                             </li>
                         ))
                     )}

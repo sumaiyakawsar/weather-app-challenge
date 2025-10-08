@@ -72,6 +72,11 @@ function App() {
   };
 
   // -------------------------------
+  useEffect(() => {
+    const handleFavChange = () => setFavoritesUpdated(prev => prev + 1);
+    window.addEventListener("favoritesUpdated", handleFavChange);
+    return () => window.removeEventListener("favoritesUpdated", handleFavChange);
+  }, []);
 
 
   return (
@@ -87,10 +92,11 @@ function App() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme={theme}
-          toastClassName="px-4 py-2 rounded-lg shadow-md border bg-white/10 text-white border-white/20 backdrop-blur-md"
-          bodyClassName="font-medium"
+          theme={theme}  
+          toastClassName="custom-toast"
+          bodyClassName="custom-toast-body"
         />
+
 
         <Navbar
           onFavoriteSelect={(loc) => {
@@ -143,7 +149,8 @@ function App() {
               weather={weather}
               location={location}
               units={displayUnits}
-              onFavoriteChange={handleFavoriteChange}
+              onFavoriteChange={handleFavoriteChange} 
+              favoritesUpdated={favoritesUpdated} 
               onCompare={({ place }) => addToCompare({ place, lat: location.lat, lon: location.lon })}
               compareList={compareList}
             />
