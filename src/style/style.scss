@@ -301,7 +301,9 @@ body {
                         top: 100%;
                         right: 0;
                         margin-top: f.rem(10);
-                        background: v.$neutral-800;
+                        background: rgba(255, 255, 255, 0.1); // semi-transparent
+                        backdrop-filter: blur(10px); // blur background
+                        -webkit-backdrop-filter: blur(10px);
                         border-radius: f.rem(12);
                         padding: f.rem(16);
                         width: f.em(250);
@@ -382,7 +384,7 @@ body {
                             .label {
                                 font-size: f.rem(14);
                                 font-weight: v.$font-bold;
-                                color: v.$neutral-300;
+                                color: var(--color-text);
                                 display: flex;
                                 align-items: center;
                                 gap: f.rem(4);
@@ -393,9 +395,11 @@ body {
 
                                 .options {
                                     padding-block: f.rem(8);
-
+                                    display: flex;
+                                    gap: f.rem(8);
                                     li {
-                                        padding: f.rem(6) f.rem(9);
+                                        flex: 1;
+                                        padding: f.rem(6) f.rem(12);
                                         border-radius: f.rem(6);
                                         font-size: f.rem(14);
                                         cursor: pointer;
@@ -403,20 +407,14 @@ body {
                                         transition: background 0.2s;
                                         display: flex;
                                         align-items: center;
-                                        justify-content: space-between;
-
+                                        justify-content: center;
+                                        background: v.$neutral-700;
                                         &:hover {
                                             background: v.$neutral-600;
                                         }
 
                                         &.active {
-                                            background: v.$neutral-700;
-
-                                            .check {
-                                                font-weight: v.$font-bolder;
-                                                color: v.$neutral-0;
-                                                font-size: f.rem(14);
-                                            }
+                                            background: var(--color-accent);
                                         }
                                     }
                                 }
@@ -1425,10 +1423,11 @@ body {
                                 position: relative;
                                 display: inline-block;
                                 box-shadow: var(--shadow);
+
                                 .select__day {
-                                    background: v.$neutral-700;
                                     color: v.$neutral-0;
-                                    border: none;
+                                    background: rgba(255, 255, 255, 0.1); // light transparency
+                                    backdrop-filter: blur(10px); 
                                     padding: f.rem(8) f.rem(16);
                                     border-radius: f.rem(8);
                                     cursor: pointer;
@@ -1441,34 +1440,35 @@ body {
                                     .arrow {
                                         font-size: f.rem(12);
                                     }
-                                    &:hover {
-                                        background: v.$neutral-600;
+                                    &:hover { 
+                                        background: rgba(255, 255, 255, 0.15);
                                     }
                                 }
 
                                 .dropdown-list {
+                                    border: v.$neutral-700 0.2px solid;
+
                                     position: absolute;
                                     top: 100%;
                                     right: 0;
-                                    background: v.$neutral-800;
+                                    background: rgba(255, 255, 255, 0.1);
+                                    backdrop-filter: blur(10px);
                                     border-radius: f.rem(8);
                                     padding: f.rem(8);
                                     box-shadow: var(--shadow);
                                     margin-top: f.rem(10);
-                                    border: v.$neutral-700 0.2px solid;
                                     z-index: 10;
                                     animation: fadeIn 0.25s ease;
-
                                     li {
                                         padding: f.rem(8);
                                         border-radius: f.rem(8);
-                                        cursor: pointer;
-
+                                        cursor: pointer; 
+                                            color: v.$neutral-0;
                                         &:hover,
                                         &:focus,
                                         &.highlighted,
-                                        &:focus-visible {
-                                            background: v.$neutral-600;
+                                        &:focus-visible { 
+                                            background: rgba(255, 255, 255, 0.2);
                                             box-shadow: var(--shadow);
                                         }
                                     }
@@ -1499,6 +1499,7 @@ body {
                                     transform 0.2s,
                                     background 0.2s;
                                 box-shadow: var(--shadow);
+                                
                                 &.current-hour {
                                     background: var(--color-accent);
                                     color: v.$neutral-0;
@@ -1545,6 +1546,8 @@ body {
                             &:focus {
                                 box-shadow: 0 0 0 3px rgba(29, 155, 209, 0.2);
                             }
+
+                            
                         }
 
                         @include breakpoint(desktop) {

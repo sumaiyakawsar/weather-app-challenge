@@ -2,8 +2,7 @@ import { useState, useRef } from "react";
 import { WiThermometer, WiStrongWind, WiRaindrops } from "react-icons/wi";
 
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
-import { MdOutlineSettings } from "react-icons/md";
-import { IoCheckmark } from "react-icons/io5";
+import { MdOutlineSettings } from "react-icons/md"; 
 import { useClickOutside } from "../../utils/utils";
 import { imperialUnits, metricUnits, options, symbolToApiParam } from "../../utils/units";
 
@@ -119,13 +118,10 @@ export default function UnitsMenu({ onUnitsChange, onSystemChange }) {
                                             key={opt.symbol}
                                             className={opt.symbol === selected[type] ? "active" : ""}
                                             onClick={() => handleSelect(type, opt.symbol)}
+                                            title={opt.label}
                                         >
-                                            {opt.label}
-                                            {opt.symbol === selected[type] && (
-                                                <span className="check">
-                                                    <IoCheckmark />
-                                                </span>
-                                            )}
+                                            {opt.symbol}
+
                                         </li>
                                     ))}
                                 </ul>

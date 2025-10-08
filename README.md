@@ -130,7 +130,6 @@ Extra features implemented:
 
 ### Continued development
 - AI powered insights
-- Glassmorphism menus
 - Flags
 - Animation
 - Sounds ASMR
