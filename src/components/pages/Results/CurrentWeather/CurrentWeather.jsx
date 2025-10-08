@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import WeatherIcon, { weatherCodeToEffect } from '../../../Subcomponents/WeatherIcon';
-import { formatLocalDate, formatLocalTime, localISOToEpochMs } from '../../../../utils/dateUtils';
 import PhaseProgress from './PhaseProgress';
 import WeatherEffects from '../../../Subcomponents/WeatherEffects';
+import { formatLocalDate, localISOToEpochMs } from '../../../../utils/dateUtils';
 import { isFavorite, addFavorite, removeFavorite } from "../../../../utils/favorites";
+
 import { FaHeart } from "react-icons/fa";
 import { MdCompareArrows } from "react-icons/md";
 
@@ -44,11 +48,20 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
     if (favorite) {
       removeFavorite(loc);
       setFavorite(false);
+      toast.info(`${place} removed from favorites!`);
     } else {
       addFavorite(loc);
       setFavorite(true);
+      toast.success(`${place} added to favorites!`);
     }
     onFavoriteChange?.();
+  };
+
+
+  const handleCompareClick = () => {
+    if (!data || !place) return;
+
+    onCompare({ data, place });
   };
 
   // Live UTC timestamp
@@ -72,7 +85,7 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
   const sunsetDate = sunsetEpoch ? new Date(sunsetEpoch) : null;
 
   const formattedDate = formatLocalDate(now, timezone);
-  
+
   //  For Testing Purposes
   // const formattedTime = formatLocalTime(now, timezone);
   // console.log(current?.is_day);
@@ -100,11 +113,7 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
         {/* Compare button */}
         <div
           className={`compare-btn ${compareList?.length >= 3 ? "disabled" : ""}`}
-          onClick={() => {
-            if (compareList?.length < 3) {
-              onCompare({ data, place });
-            }
-          }}
+          onClick={handleCompareClick}
           title={compareList?.length >= 3 ? "Max 3 locations allowed" : "Add to Compare"}
         >
           <MdCompareArrows
@@ -131,7 +140,6 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
         <div className="location__date">
           <div className="place">{place}</div>
           <p className="date">{formattedDate}</p>
-          {/* <p className="time">{formattedTime}</p> */}
 
         </div>
         <PhaseProgress

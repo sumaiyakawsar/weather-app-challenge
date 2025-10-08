@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useGeolocation } from "./hooks/useGeolocation";
 import { useWeather } from "./hooks/useWeather";
 import { useCompareList } from "./hooks/useCompareList";
@@ -13,37 +16,90 @@ import ResultsContainer from "./components/pages/Results/ResultsContainer";
 import ResultsSkeleton from "./components/pages/Skeletons/ResultsSkeleton";
 import Footer from "./components/Footer/Footer";
 
+
 function App() {
+  // -----------------------------
+  // App states
+  // -----------------------------
   const [status, setStatus] = useState("idle"); //idle |  loading | success | no-results | error
   const [initialLoadDone, setInitialLoadDone] = useState(false);  // 🛰️ Detect user location on first load
-
-  const [location, setLocation] = useGeolocation(initialLoadDone, setInitialLoadDone, setStatus);
-
   const [displayUnits, setDisplayUnits] = useState(metricUnits);
+
+  // -------------------------------
+  // Location state (persistent)
+  const [location, setLocation] = useState(() => {
+    const saved = localStorage.getItem("lastLocation");
+    return saved ? JSON.parse(saved) : null;
+  });
+
+
+  // -------------------------------
+  // Weather state
   const [weather] = useWeather(location, displayUnits, setStatus);
 
-  // Function to reset to current location
-  const resetToCurrentLocation = () => {
-    setStatus("loading");
-    setInitialLoadDone(false); // This will trigger the geolocation again
-  };
-// Favourite Handling
+  // -------------------------------
+  // Theme state
+  const { theme, toggleTheme } = useTheme(weather);
+
+  // -----------------------------
+  // Geolocation hook (with toast)
+  // -----------------------------
+  useGeolocation(
+    { location, setLocation },
+    initialLoadDone,
+    setInitialLoadDone,
+    setStatus
+  );
+
+  // -----------------------------
+  // Favorites handling
+  // -----------------------------
   const [favoritesUpdated, setFavoritesUpdated] = useState(0);
   const handleFavoriteChange = () => setFavoritesUpdated((prev) => prev + 1);
 
-// Compare 
+  // -----------------------------
+  // Compare list
+  // -----------------------------
   const { compareList, addToCompare, removeFromCompare } = useCompareList();
 
-  // 🌗 Theme Handling (refactored into hook)
-  const { theme, toggleTheme } = useTheme(weather);
+  // -----------------------------
+  // Reset location manually
+  // -----------------------------
+  const resetToCurrentLocation = () => {
+    setStatus("loading"); 
+    setLocation(null);
+    setInitialLoadDone(false); // triggers geolocation + toast again
+  };
+
+  // -------------------------------
+
 
   return (
     <div className="weather-app">
       <main className="container">
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={theme}
+          toastClassName="px-4 py-2 rounded-lg shadow-md border bg-white/10 text-white border-white/20 backdrop-blur-md"
+          bodyClassName="font-medium"
+        />
+
         <Navbar
           onFavoriteSelect={(loc) => {
             setLocation(loc);
             setStatus("loading");
+
+            if (loc) {
+              toast.success(`Location set to ${loc.name}, ${loc.country}`);
+            }
           }}
           favoritesUpdated={favoritesUpdated}
           onUnitsChange={setDisplayUnits}
@@ -54,7 +110,7 @@ function App() {
           compareList={compareList}
           onRemoveFromCompare={removeFromCompare}
         />
-        {/* Status-based rendering */}
+
         {/* Show header only for no-results or success */}
         {status !== "error" && (
           <header className="header">
@@ -64,8 +120,17 @@ function App() {
                 setStatus(s);
                 if (loc) setLocation(loc);
                 else setLocation(null);
+
+                // Toast notifications
+                if (s === "success" && loc) {
+                  toast.success(`Location set to ${loc.name}, ${loc.country}`);
+                } else if (s === "no-results") {
+                  toast.info("No results found for your search.");
+                } else if (s === "error") {
+                  toast.error("Failed to fetch location. Try again.");
+                }
               }}
-              onClearSearch={resetToCurrentLocation}  
+              onClearSearch={resetToCurrentLocation}
             />
           </header>
         )}
@@ -81,7 +146,7 @@ function App() {
               onFavoriteChange={handleFavoriteChange}
               onCompare={({ place }) => addToCompare({ place, lat: location.lat, lon: location.lon })}
               compareList={compareList}
-              />
+            />
           )}
 
         </div>

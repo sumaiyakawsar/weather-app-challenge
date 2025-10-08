@@ -66,7 +66,7 @@ Extra features implemented:
 - ⏳ Skeleton loading states for better UX
 - 🛰️ Additional metrics: UV index, visibility, air pressure
 - 📲 PWA support for mobile installation
-
+- 🪧 Added Toasts for Adding/Removing cities from comparelist & favourites, Location Detection and selecting cities. 
 
 ### 📔Screenshot
 
@@ -129,8 +129,12 @@ Extra features implemented:
 - Deployed to GitHub Pages with gh-pages.
 
 ### Continued development
-- Add Toasts Later for Adding/Removing cities from comparelist & favourites. 
 - AI powered insights
+- Delete from favourites
+- Glassmorphism menus
+- Flags
+- Animation
+- Sounds ASMR
 
 ### Useful resources
 - [PWC resource](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf) - This is an amazing article which helped me finally understand PWC. I'd recommend it to anyone still learning this concept.
