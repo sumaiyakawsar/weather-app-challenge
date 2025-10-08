@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { FaHeart } from "react-icons/fa";
-import { dedupeFavorites, getFavorites } from "../../utils/favorites";
+import { FaHeart, FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { dedupeFavorites, getFavorites, removeFavorite } from "../../utils/favorites";
 import Dropdown from "../Subcomponents/Dropdown";
 
 export default function FavoritesMenu({ onSelect, favoritesUpdated }) {
@@ -18,6 +19,37 @@ export default function FavoritesMenu({ onSelect, favoritesUpdated }) {
         return () => window.removeEventListener("storage", handleStorageChange);
     }, [favoritesUpdated]);
 
+    const handleDelete = (favorite, e) => {
+        e.stopPropagation();
+        removeFavorite(favorite);
+        setFavorites(dedupeFavorites(getFavorites()));
+        toast.success(`${favorite.name} removed from favorites`, {
+            position: "bottom-right",
+            autoClose: 2000,
+        });
+
+        // 🔥 Notify parent
+        window.dispatchEvent(new Event("favoritesUpdated")); // 🪄 Add this line
+    };
+
+    const renderFavoriteItem = (option) => (
+        <div className="favorite-content">
+            <div className="favorite-name">{option.name}</div>
+            <div className="favorite-country">{option.country}</div>
+        </div>
+    );
+
+    const renderFavoriteExtra = (option) => (
+        <button
+            onClick={(e) => handleDelete(option, e)}
+            className="delete-btn"
+            aria-label={`Remove ${option.name} from favorites`}
+            title={`Remove ${option.name} from favorites`}
+        >
+            <FaTrash size={16} />
+        </button>
+    );
+
     return (
         <Dropdown
             options={favorites}
@@ -32,9 +64,9 @@ export default function FavoritesMenu({ onSelect, favoritesUpdated }) {
             )}
             buttonClass="favorites-btn"
             listClass="favorites-list"
-            renderItem={(option) => `${option.name}, ${option.country}`}
+            renderItem={renderFavoriteItem}
+            renderExtra={renderFavoriteExtra}
             emptyMessage="No favorites yet"
-
         />
     );
 }

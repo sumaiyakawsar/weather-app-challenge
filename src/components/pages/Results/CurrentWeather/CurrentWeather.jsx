@@ -11,7 +11,7 @@ import { isFavorite, addFavorite, removeFavorite } from "../../../../utils/favor
 import { FaHeart } from "react-icons/fa";
 import { MdCompareArrows } from "react-icons/md";
 
-function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onCompare, compareList }) {
+function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onCompare, compareList, favoritesUpdated }) {
 
   const current = data?.current_weather;
   const daily = data?.daily || {};
@@ -23,15 +23,16 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
 
     const [name, country = ""] = place.split(",").map(s => s.trim());
 
-    setFavorite(
-      isFavorite({
-        lat: Number(data.latitude),
-        lon: Number(data.longitude),
-        name,
-        country,
-      })
-    );
-  }, [data, place]);
+    const loc = {
+      lat: Number(data.latitude),
+      lon: Number(data.longitude),
+      name,
+      country,
+    };
+
+    setFavorite(isFavorite(loc)); // ✅ will re-check on every update
+  }, [favoritesUpdated]); // ✅ only depends on favoritesUpdated
+
 
   const toggleFavorite = () => {
     if (!data || !place) return;
