@@ -14,8 +14,7 @@ import NoResults from "./components/pages/NoResults/NoResults";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ResultsContainer from "./components/pages/Results/ResultsContainer";
 import ResultsSkeleton from "./components/pages/Skeletons/ResultsSkeleton";
-import Footer from "./components/Footer/Footer";
-
+import Footer from "./components/Footer/Footer"; 
 
 function App() {
   // -----------------------------
@@ -151,7 +150,14 @@ function App() {
               units={displayUnits}
               onFavoriteChange={handleFavoriteChange} 
               favoritesUpdated={favoritesUpdated} 
-              onCompare={({ place }) => addToCompare({ place, lat: location.lat, lon: location.lon })}
+              onCompare={({ place }) =>
+                addToCompare({
+                  place,
+                  lat: location.lat,
+                  lon: location.lon,
+                  countryCode: location.country_code || location.countryCode || location.country?.slice(0, 2).toUpperCase() || "us"
+                })
+              }
               compareList={compareList}
             />
           )}

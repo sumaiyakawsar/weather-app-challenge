@@ -8,9 +8,11 @@ const LONDON_COORDS = {
     lon: -0.1278,
     name: "London",
     country: "United Kingdom",
+    countryCode: "GB",
+
 };
 
- 
+
 export function useGeolocation(
     { location, setLocation },
     initialLoadDone,

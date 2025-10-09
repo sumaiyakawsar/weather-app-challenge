@@ -5,6 +5,7 @@ import StatsGrid from "../../pages/Results/CurrentWeather/StatsGrid";
 import WeatherEffects from "../../Subcomponents/WeatherEffects";
 import { getWeather } from "../../../hooks/api/weatherAPI";
 import CompareCardSkeleton from "../../pages/Skeletons/CompareCardSkeleton";
+import { CircleFlag } from "react-circle-flags";
 
 
 export default function CompareModal({ isOpen, onClose, compareList, onRemove, units, system = "metric" }) {
@@ -56,7 +57,7 @@ export default function CompareModal({ isOpen, onClose, compareList, onRemove, u
         if (!slot) return null;
         return {
             ...slot,
-            data: weatherData[slot.place] // Always use fresh data
+            data: weatherData[slot.place]
         };
     });
 
@@ -105,7 +106,25 @@ export default function CompareModal({ isOpen, onClose, compareList, onRemove, u
                                             <FaTimes size={14} />
                                         </button>
                                         <div className="weather-now">
-                                            <h3 className="location-name">{slot.place}</h3>
+                                            <div className="location-header">
+                                                <div className="flag">
+                                                    {slot.countryCode ? (
+                                                        <CircleFlag countryCode={slot.countryCode.toLowerCase()} height="28" />
+                                                    ) : (
+                                                        <span role="img" aria-label="globe">🌍</span>
+                                                    )}
+                                                </div>
+                                                <div className="location-text">
+                                                    <div className="city-name">
+                                                        {slot.place.split(",")[0].trim()}
+                                                    </div>
+                                                    <div className="country-name">
+                                                        {slot.place.split(",")[1]?.trim() || ""}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div className="weather-icon">
                                                 <WeatherIcon code={slot.data?.current_weather?.weathercode} size={48} />
                                             </div>

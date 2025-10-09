@@ -241,13 +241,6 @@ body {
                             }
                         }
 
-                        // .no-favorites {
-                        //     color: v.$neutral-0;
-                        //     font-style: v.$font-italic;
-                        //     pointer-events: none;
-                        //     cursor: none;
-                        //     background: transparent;
-                        // }
                         .empty-message {
                             display: flex;
                             align-items: center;
@@ -581,11 +574,42 @@ body {
                                     position: relative;
                                     z-index: 2;
                                 }
-                                .location-name {
-                                    font-size: f.rem(20);
-                                    font-weight: v.$font-bold;
-
+                                // .location-name {
+                                //     font-size: f.rem(20);
+                                //     font-weight: v.$font-bold;
+                                //     display: flex;
+                                //
+                                //     align-items: center;
+                                //
+                                // }
+                                .location-header {
+                                    display: flex;
                                     z-index: 1;
+                                    align-items: center;
+                                    gap: f.rem(8);
+
+                                    .flag {
+                                        flex-shrink: 0;
+                                        display: flex;
+                                        align-items: center;
+                                    }
+                                    .location-text {
+                                        z-index: 1;
+                                        display: flex;
+                                        flex-direction: column;
+                                        line-height: 1.2;
+                                        .city-name {
+                                            font-size: 1.1rem;
+                                            font-weight: 600;
+                                            color: #ffffff;
+                                            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                                        }
+
+                                        .country-name {
+                                            font-size: 0.85rem;
+                                            color: rgba(255, 255, 255, 0.8);
+                                        }
+                                    }
                                 }
 
                                 .weather-icon {
@@ -799,6 +823,9 @@ body {
                             padding: f.rem(8);
                             cursor: pointer;
                             border-radius: f.rem(8);
+                            display: flex;
+                            align-items: center;
+                            gap: f.rem(16);
 
                             &:hover,
                             &:focus,
@@ -996,6 +1023,9 @@ body {
                                 .place {
                                     font-size: clamp(f.rem(18), 2vw, f.rem(20));
                                     font-weight: v.$font-bolder;
+                                    display: flex;
+                                    gap: f.rem(8);
+                                    align-items: center;
                                 }
                                 .date,
                                 .time {
@@ -1427,7 +1457,7 @@ body {
                                 .select__day {
                                     color: v.$neutral-0;
                                     background: rgba(255, 255, 255, 0.1); // light transparency
-                                    backdrop-filter: blur(10px); 
+                                    backdrop-filter: blur(10px);
                                     padding: f.rem(8) f.rem(16);
                                     border-radius: f.rem(8);
                                     cursor: pointer;
@@ -1440,14 +1470,12 @@ body {
                                     .arrow {
                                         font-size: f.rem(12);
                                     }
-                                    &:hover { 
+                                    &:hover {
                                         background: rgba(255, 255, 255, 0.15);
                                     }
                                 }
 
                                 .dropdown-list {
-                                    border: v.$neutral-700 0.2px solid;
-
                                     position: absolute;
                                     top: 100%;
                                     right: 0;
@@ -1462,12 +1490,12 @@ body {
                                     li {
                                         padding: f.rem(8);
                                         border-radius: f.rem(8);
-                                        cursor: pointer; 
-                                            color: v.$neutral-0;
+                                        cursor: pointer;
+                                        color: v.$neutral-0;
                                         &:hover,
                                         &:focus,
                                         &.highlighted,
-                                        &:focus-visible { 
+                                        &:focus-visible {
                                             background: rgba(255, 255, 255, 0.2);
                                             box-shadow: var(--shadow);
                                         }
@@ -1499,7 +1527,7 @@ body {
                                     transform 0.2s,
                                     background 0.2s;
                                 box-shadow: var(--shadow);
-                                
+
                                 &.current-hour {
                                     background: var(--color-accent);
                                     color: v.$neutral-0;
@@ -1546,8 +1574,6 @@ body {
                             &:focus {
                                 box-shadow: 0 0 0 3px rgba(29, 155, 209, 0.2);
                             }
-
-                            
                         }
 
                         @include breakpoint(desktop) {

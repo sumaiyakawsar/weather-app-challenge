@@ -3,6 +3,7 @@ import { FaHeart, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { dedupeFavorites, getFavorites, removeFavorite } from "../../utils/favorites";
 import Dropdown from "../Subcomponents/Dropdown";
+import { CircleFlag } from "react-circle-flags";
 
 export default function FavoritesMenu({ onSelect, favoritesUpdated }) {
     const [favorites, setFavorites] = useState([]);
@@ -33,10 +34,21 @@ export default function FavoritesMenu({ onSelect, favoritesUpdated }) {
     };
 
     const renderFavoriteItem = (option) => (
-        <div className="favorite-content">
-            <div className="favorite-name">{option.name}</div>
-            <div className="favorite-country">{option.country}</div>
-        </div>
+        <>
+            {option.countryCode ? (
+                <CircleFlag
+                    countryCode={option.countryCode.toLowerCase()}
+                    height={30}
+                />
+            ) : (
+                <div className="favorite-flag placeholder" />
+            )}
+            <div className="favorite-content">
+                <div className="favorite-name">{option.name}</div>
+                <div className="favorite-country">{option.country}</div>
+            </div>
+        </>
+
     );
 
     const renderFavoriteExtra = (option) => (
