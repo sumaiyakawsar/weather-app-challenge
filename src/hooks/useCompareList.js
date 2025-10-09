@@ -24,18 +24,18 @@ export function useCompareList() {
     }, [compareList]);
 
 
-    const addToCompare = ({ place, lat, lon }) => {
+    const addToCompare = ({ place, lat, lon, countryCode }) => {
         setCompareList((prev) => {
             const list = Array.isArray(prev) ? prev : [];
-
             // Already in list
             if (list.some((loc) => loc.place === place)) return list;
 
             // List full
             if (list.length >= 3) return list;
 
-            return [...list, { place, lat, lon }];
+            return [...list, { place, lat, lon, countryCode }];
         });
+
 
         // Decide which toast to show AFTER setState
         const currentList = compareList || [];

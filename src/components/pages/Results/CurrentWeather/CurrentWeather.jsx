@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CircleFlag } from "react-circle-flags";
 
 import WeatherIcon, { weatherCodeToEffect } from '../../../Subcomponents/WeatherIcon';
 import PhaseProgress from './PhaseProgress';
@@ -11,7 +12,7 @@ import { isFavorite, addFavorite, removeFavorite } from "../../../../utils/favor
 import { FaHeart } from "react-icons/fa";
 import { MdCompareArrows } from "react-icons/md";
 
-function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onCompare, compareList, favoritesUpdated }) {
+function CurrentWeather({ data, place, location, units, timezone, onFavoriteChange, onCompare, compareList, favoritesUpdated }) {
 
   const current = data?.current_weather;
   const daily = data?.daily || {};
@@ -22,12 +23,14 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
     if (!data || !place) return;
 
     const [name, country = ""] = place.split(",").map(s => s.trim());
+    const countryCode = location?.countryCode || location?.country?.slice(0, 2).toUpperCase() || null;
 
     const loc = {
       lat: Number(data.latitude),
       lon: Number(data.longitude),
       name,
       country,
+      countryCode,
     };
 
     setFavorite(isFavorite(loc)); // ✅ will re-check on every update
@@ -39,11 +42,14 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
 
     const [name, country = ""] = place.split(",").map(s => s.trim());
 
+    const countryCode = location?.countryCode || location?.country?.slice(0, 2).toUpperCase() || null;
+
     const loc = {
       lat: Number(data.latitude),
       lon: Number(data.longitude),
       name,
       country,
+      countryCode,
     };
 
     if (favorite) {
@@ -56,6 +62,8 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
       toast.success(`${place} added to favorites!`);
     }
     onFavoriteChange?.();
+    window.dispatchEvent(new Event("favoritesUpdated"));
+
   };
 
 
@@ -139,7 +147,16 @@ function CurrentWeather({ data, place, units, timezone, onFavoriteChange, onComp
 
       <div className="content">
         <div className="location__date">
-          <div className="place">{place}</div>
+          <div className="place">
+            {location?.countryCode && (
+              <CircleFlag
+                countryCode={location.countryCode.toLowerCase()}
+                height="24"
+              />
+            )}  
+            {place}
+
+          </div>
           <p className="date">{formattedDate}</p>
 
         </div>

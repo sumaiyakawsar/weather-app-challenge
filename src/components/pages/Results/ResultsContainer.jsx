@@ -3,7 +3,7 @@ import StatsGrid from './CurrentWeather/StatsGrid'
 import DailyForecast from './DailyForecast/DailyForecast'
 import HourlyForecast from './HourlyForecast/HourlyForecast'
 
-export default function ResultsContainer({ weather, location, units, onFavoriteChange, favoritesUpdated, onCompare, compareList  }) {
+export default function ResultsContainer({ weather, location, units, onFavoriteChange, favoritesUpdated, onCompare, compareList }) {
   if (!weather || !location) return null;
 
   return (
@@ -11,9 +11,10 @@ export default function ResultsContainer({ weather, location, units, onFavoriteC
       <CurrentWeather
         data={weather}
         place={`${location.name}, ${location.country}`}
-        units={units} 
+        units={units}
+        location={location}
         onFavoriteChange={onFavoriteChange}
-        favoritesUpdated={favoritesUpdated} 
+        favoritesUpdated={favoritesUpdated}
         timezone={weather?.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone}
         onCompare={onCompare}
         compareList={compareList}

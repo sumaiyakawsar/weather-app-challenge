@@ -8,7 +8,7 @@ export async function getLocationName(lat, lon) {
     if (!res.ok) throw new Error("Failed to fetch location name");
 
     const data = await res.json();
-    const { city, town, village, state, county } = data.address;
+    const { city, town, village, state, county, country_code } = data.address;
     let name = city || town || village || state || county || "Unknown";
 
     // Strip "Region" from state names
@@ -20,6 +20,8 @@ export async function getLocationName(lat, lon) {
     return {
         name,
         country: data.address.country,
+        countryCode: country_code ? country_code.toUpperCase() : "US",
+
     };
 }
 
@@ -41,6 +43,7 @@ export async function searchLocation(query, limit = 5) {
         return data.results.map(r => ({
             name: r.name,
             country: r.country,
+            countryCode: r.country_code,
             lat: r.latitude,
             lon: r.longitude
         }));
